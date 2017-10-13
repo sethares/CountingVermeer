@@ -1,0 +1,999 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     42478,        991]
+NotebookOptionsPosition[     42170,        976]
+NotebookOutlinePosition[     42524,        992]
+CellTagsIndexPosition[     42481,        989]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"i1", "\[NotEqual]", "i1Old"}], "||", 
+       RowBox[{"i2", "\[NotEqual]", "i2Old"}], "||", 
+       RowBox[{"kind", "\[NotEqual]", "kindOld"}]}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"suffix", "=", 
+        RowBox[{"suffixes", "[", 
+         RowBox[{"[", "kind", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"file1", "=", 
+        RowBox[{"FileNameJoin", "[", 
+         RowBox[{"{", 
+          RowBox[{"dir", ",", 
+           RowBox[{
+           "\"\<threadCount\>\"", "<>", "i1", "<>", "suffix", "<>", 
+            "\"\<.m\>\""}]}], "}"}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"file2", "=", 
+        RowBox[{"FileNameJoin", "[", 
+         RowBox[{"{", 
+          RowBox[{"dir", ",", 
+           RowBox[{
+           "\"\<threadCount\>\"", "<>", "i2", "<>", "suffix", "<>", 
+            "\"\<.m\>\""}]}], "}"}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"FileExistsQ", "[", "file1", "]"}], "&&", 
+          RowBox[{"FileExistsQ", "[", "file2", "]"}]}], ",", 
+         RowBox[{
+          RowBox[{"Get", "[", "file1", "]"}], ";", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+            "name1", ",", "h1", ",", "hang1", ",", "v1", ",", "vang1"}], 
+            "}"}], "=", 
+           RowBox[{"{", 
+            RowBox[{
+            "fileName", ",", "matH", ",", "angH", ",", "matV", ",", "angV"}], 
+            "}"}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{"Get", "[", "file2", "]"}], ";", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+            "name2", ",", "h2", ",", "hang2", ",", "v2", ",", "vang2"}], 
+            "}"}], "=", 
+           RowBox[{"{", 
+            RowBox[{
+            "fileName", ",", "matH", ",", "angH", ",", "matV", ",", "angV"}], 
+            "}"}]}], ";", 
+          RowBox[{"filesFound", "=", "True"}], ";"}], ",", 
+         RowBox[{
+          RowBox[{"filesFound", "=", "False"}], ";"}]}], "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"i1Old", "=", "i1"}], ";", 
+       RowBox[{"i2Old", "=", "i2"}], ";", 
+       RowBox[{"kindOld", "=", "kind"}], ";"}]}], "]"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Which", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"vh1", "\[Equal]", "\"\<H\>\""}], "&&", 
+       RowBox[{"map", "\[Equal]", "\"\<angle\>\""}]}], ",", 
+      RowBox[{
+       RowBox[{"flatH1", "=", 
+        RowBox[{"Select", "[", 
+         RowBox[{
+          RowBox[{"Flatten", "@", "hang1"}], ",", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", "Infinity"}], "<", "#", "<", "Infinity"}], "&"}]}], 
+         "]"}]}], ";", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"disp1", ",", "minh1", ",", "maxh1", ",", "stdh1"}], "}"}], 
+        "=", 
+        RowBox[{"{", 
+         RowBox[{"hang1", ",", 
+          RowBox[{"Min", "[", "flatH1", "]"}], ",", 
+          RowBox[{"Max", "[", "flatH1", "]"}], ",", 
+          RowBox[{"StandardDeviation", "[", "flatH1", "]"}]}], "}"}]}], ";"}],
+       ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"vh1", "\[Equal]", "\"\<V\>\""}], "&&", 
+       RowBox[{"map", "\[Equal]", "\"\<angle\>\""}]}], ",", 
+      RowBox[{
+       RowBox[{"flatV1", "=", 
+        RowBox[{"Select", "[", 
+         RowBox[{
+          RowBox[{"Flatten", "@", "vang1"}], ",", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", "Infinity"}], "<", "#", "<", "Infinity"}], "&"}]}], 
+         "]"}]}], ";", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"disp1", ",", "minh1", ",", "maxh1", ",", "stdh1"}], "}"}], 
+        "=", 
+        RowBox[{"{", 
+         RowBox[{"vang1", ",", 
+          RowBox[{"Min", "[", "flatV1", "]"}], ",", 
+          RowBox[{"Max", "[", "flatV1", "]"}], ",", 
+          RowBox[{"StandardDeviation", "[", "flatV1", "]"}]}], "}"}]}], ";"}],
+       ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"vh1", "\[Equal]", "\"\<H\>\""}], "&&", 
+       RowBox[{"map", "\[Equal]", "\"\<weave\>\""}]}], ",", 
+      RowBox[{
+       RowBox[{"flatH1", "=", 
+        RowBox[{"Select", "[", 
+         RowBox[{
+          RowBox[{"Flatten", "@", "h1"}], ",", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", "Infinity"}], "<", "#", "<", "Infinity"}], "&"}]}], 
+         "]"}]}], ";", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"disp1", ",", "minh1", ",", "maxh1", ",", "stdh1"}], "}"}], 
+        "=", 
+        RowBox[{"{", 
+         RowBox[{"h1", ",", 
+          RowBox[{"Min", "[", "flatH1", "]"}], ",", 
+          RowBox[{"Max", "[", "flatH1", "]"}], ",", 
+          RowBox[{"StandardDeviation", "[", "flatH1", "]"}]}], "}"}]}], ";"}],
+       ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"vh1", "\[Equal]", "\"\<V\>\""}], "&&", 
+       RowBox[{"map", "\[Equal]", "\"\<weave\>\""}]}], ",", 
+      RowBox[{
+       RowBox[{"flatV1", "=", 
+        RowBox[{"Select", "[", 
+         RowBox[{
+          RowBox[{"Flatten", "@", "v1"}], ",", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", "Infinity"}], "<", "#", "<", "Infinity"}], "&"}]}], 
+         "]"}]}], ";", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"disp1", ",", "minh1", ",", "maxh1", ",", "stdh1"}], "}"}], 
+        "=", 
+        RowBox[{"{", 
+         RowBox[{"v1", ",", 
+          RowBox[{"Min", "[", "flatV1", "]"}], ",", 
+          RowBox[{"Max", "[", "flatV1", "]"}], ",", 
+          RowBox[{"StandardDeviation", "[", "flatV1", "]"}]}], "}"}]}], 
+       ";"}]}], "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+    RowBox[{"Which", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"vh2", "\[Equal]", "\"\<H\>\""}], "&&", 
+       RowBox[{"map", "\[Equal]", "\"\<angle\>\""}]}], ",", 
+      RowBox[{
+       RowBox[{"flatH2", "=", 
+        RowBox[{"Select", "[", 
+         RowBox[{
+          RowBox[{"Flatten", "@", "hang2"}], ",", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", "Infinity"}], "<", "#", "<", "Infinity"}], "&"}]}], 
+         "]"}]}], ";", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"disp2", ",", "minh2", ",", "maxh2", ",", "stdh2"}], "}"}], 
+        "=", 
+        RowBox[{"{", 
+         RowBox[{"hang2", ",", 
+          RowBox[{"Min", "[", "flatH2", "]"}], ",", 
+          RowBox[{"Max", "[", "flatH2", "]"}], ",", 
+          RowBox[{"StandardDeviation", "[", "flatH2", "]"}]}], "}"}]}], ";"}],
+       ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"vh2", "\[Equal]", "\"\<V\>\""}], "&&", 
+       RowBox[{"map", "\[Equal]", "\"\<angle\>\""}]}], ",", 
+      RowBox[{
+       RowBox[{"flatV2", "=", 
+        RowBox[{"Select", "[", 
+         RowBox[{
+          RowBox[{"Flatten", "@", "vang2"}], ",", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", "Infinity"}], "<", "#", "<", "Infinity"}], "&"}]}], 
+         "]"}]}], ";", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"disp2", ",", "minh2", ",", "maxh2", ",", "stdh2"}], "}"}], 
+        "=", 
+        RowBox[{"{", 
+         RowBox[{"vang2", ",", 
+          RowBox[{"Min", "[", "flatV2", "]"}], ",", 
+          RowBox[{"Max", "[", "flatV2", "]"}], ",", 
+          RowBox[{"StandardDeviation", "[", "flatV2", "]"}]}], "}"}]}], ";"}],
+       ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"vh2", "\[Equal]", "\"\<H\>\""}], "&&", 
+       RowBox[{"map", "\[Equal]", "\"\<weave\>\""}]}], ",", 
+      RowBox[{
+       RowBox[{"flatH2", "=", 
+        RowBox[{"Select", "[", 
+         RowBox[{
+          RowBox[{"Flatten", "@", "h2"}], ",", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", "Infinity"}], "<", "#", "<", "Infinity"}], "&"}]}], 
+         "]"}]}], ";", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"disp2", ",", "minh2", ",", "maxh2", ",", "stdh2"}], "}"}], 
+        "=", 
+        RowBox[{"{", 
+         RowBox[{"h2", ",", 
+          RowBox[{"Min", "[", "flatH2", "]"}], ",", 
+          RowBox[{"Max", "[", "flatH2", "]"}], ",", 
+          RowBox[{"StandardDeviation", "[", "flatH2", "]"}]}], "}"}]}], ";"}],
+       ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"vh2", "\[Equal]", "\"\<V\>\""}], "&&", 
+       RowBox[{"map", "\[Equal]", "\"\<weave\>\""}]}], ",", 
+      RowBox[{
+       RowBox[{"flatV2", "=", 
+        RowBox[{"Select", "[", 
+         RowBox[{
+          RowBox[{"Flatten", "@", "v2"}], ",", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", "Infinity"}], "<", "#", "<", "Infinity"}], "&"}]}], 
+         "]"}]}], ";", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"disp2", ",", "minh2", ",", "maxh2", ",", "stdh2"}], "}"}], 
+        "=", 
+        RowBox[{"{", 
+         RowBox[{"v2", ",", 
+          RowBox[{"Min", "[", "flatV2", "]"}], ",", 
+          RowBox[{"Max", "[", "flatV2", "]"}], ",", 
+          RowBox[{"StandardDeviation", "[", "flatV2", "]"}]}], "}"}]}], 
+       ";"}]}], "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"minh", ",", "maxh"}], "}"}], "=", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"Min", "[", 
+        RowBox[{"minh1", ",", "minh2"}], "]"}], ",", 
+       RowBox[{"Max", "[", 
+        RowBox[{"maxh1", ",", "maxh2"}], "]"}]}], "}"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"disp1", "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", 
+       RowBox[{"disp1", "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ",", "2"}], "]"}], "]"}], ",", 
+       RowBox[{"disp2", "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ",", "1"}], "]"}], "]"}], ",", 
+       RowBox[{"disp2", "[", 
+        RowBox[{"[", 
+         RowBox[{"1", ",", "2"}], "]"}], "]"}]}], "}"}], "=", 
+     RowBox[{"{", 
+      RowBox[{"minh", ",", "maxh", ",", "minh", ",", "maxh"}], "}"}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"maxdim", "=", 
+     RowBox[{"Max", "@", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Dimensions", "[", "disp1", "]"}], ",", 
+        RowBox[{"Dimensions", "[", "disp2", "]"}]}], "}"}]}]}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Which", "[", 
+     RowBox[{
+      RowBox[{"rot1", "\[Equal]", "0"}], ",", 
+      RowBox[{"rotFun1", "=", "Identity"}], ",", 
+      RowBox[{"rot1", "\[Equal]", "90"}], ",", 
+      RowBox[{"rotFun1", "=", 
+       RowBox[{
+        RowBox[{"Reverse", "@", 
+         RowBox[{"Transpose", "[", "#", "]"}]}], "&"}]}], ",", 
+      RowBox[{"rot1", "\[Equal]", "180"}], ",", 
+      RowBox[{"rotFun1", "=", 
+       RowBox[{
+        RowBox[{"Transpose", "@", 
+         RowBox[{"Reverse", "@", 
+          RowBox[{"Transpose", "@", 
+           RowBox[{"Reverse", "[", "#", "]"}]}]}]}], "&"}]}], ",", 
+      RowBox[{"rot1", "\[Equal]", "270"}], ",", 
+      RowBox[{"rotFun1", "=", 
+       RowBox[{
+        RowBox[{"Transpose", "@", 
+         RowBox[{"Reverse", "[", "#", "]"}]}], "&"}]}]}], "]"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Which", "[", 
+     RowBox[{
+      RowBox[{"rot2", "\[Equal]", "0"}], ",", 
+      RowBox[{"rotFun2", "=", "Identity"}], ",", 
+      RowBox[{"rot2", "\[Equal]", "90"}], ",", 
+      RowBox[{"rotFun2", "=", 
+       RowBox[{
+        RowBox[{"Reverse", "@", 
+         RowBox[{"Transpose", "[", "#", "]"}]}], "&"}]}], ",", 
+      RowBox[{"rot2", "\[Equal]", "180"}], ",", 
+      RowBox[{"rotFun2", "=", 
+       RowBox[{
+        RowBox[{"Transpose", "@", 
+         RowBox[{"Reverse", "@", 
+          RowBox[{"Transpose", "@", 
+           RowBox[{"Reverse", "[", "#", "]"}]}]}]}], "&"}]}], ",", 
+      RowBox[{"rot2", "\[Equal]", "270"}], ",", 
+      RowBox[{"rotFun2", "=", 
+       RowBox[{
+        RowBox[{"Transpose", "@", 
+         RowBox[{"Reverse", "[", "#", "]"}]}], "&"}]}]}], "]"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{"flip1", "\[Equal]", "True"}], ",", 
+      RowBox[{"flipFun1", "=", "Reverse"}], ",", 
+      RowBox[{"flipFun1", "=", "Identity"}]}], "]"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{"flip2", "\[Equal]", "True"}], ",", 
+      RowBox[{"flipFun2", "=", "Reverse"}], ",", 
+      RowBox[{"flipFun2", "=", "Identity"}]}], "]"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"barMin", "=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"1", "-", "lam"}], ")"}], "*", "minh"}], "+", 
+      RowBox[{"lam", "*", "maxh"}]}]}], ";", 
+    RowBox[{"barMax", "=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"1", "-", "lam2"}], ")"}], "*", "minh"}], "+", 
+      RowBox[{"lam2", "*", "maxh"}]}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{"filesFound", "\[Equal]", "True"}], ",", 
+      RowBox[{"Row", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"GraphicsRow", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"ArrayPlot", "[", 
+              RowBox[{
+               RowBox[{"rotFun1", "@", 
+                RowBox[{"flipFun1", "@", 
+                 RowBox[{"Map", "[", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"Clip", "[", 
+                    RowBox[{"#", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"barMin", ",", "barMax"}], "}"}]}], "]"}], "&"}], 
+                   ",", "disp1", ",", "1"}], "]"}]}]}], ",", 
+               RowBox[{"ColorFunction", "\[Rule]", "colors"}], ",", 
+               RowBox[{"PixelConstrained", "\[Rule]", 
+                RowBox[{"2", " ", "siz"}]}], ",", 
+               RowBox[{"Frame", "\[Rule]", "False"}]}], "]"}], ",", 
+             "\[IndentingNewLine]", 
+             RowBox[{"ArrayPlot", "[", 
+              RowBox[{
+               RowBox[{"rotFun2", "@", 
+                RowBox[{"flipFun2", "@", 
+                 RowBox[{"Map", "[", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"Clip", "[", 
+                    RowBox[{"#", ",", 
+                    RowBox[{"{", 
+                    RowBox[{"barMin", ",", "barMax"}], "}"}]}], "]"}], "&"}], 
+                   ",", "disp2", ",", "1"}], "]"}]}]}], ",", 
+               RowBox[{"ColorFunction", "\[Rule]", "colors"}], ",", 
+               RowBox[{"PixelConstrained", "\[Rule]", 
+                RowBox[{"2", " ", "siz"}]}], ",", 
+               RowBox[{"Frame", "\[Rule]", "False"}]}], "]"}]}], "}"}], ",", 
+           RowBox[{"ImageSize", "\[Rule]", " ", 
+            RowBox[{"4.2", " ", "siz", " ", "maxdim"}]}], ",", 
+           RowBox[{"AspectRatio", "\[Rule]", "1"}], ",", 
+           RowBox[{"Background", "\[Rule]", 
+            RowBox[{"RGBColor", "[", 
+             RowBox[{"0.95", ",", "0.95", ",", "0.95"}], "]"}]}]}], "]"}], 
+         ",", 
+         RowBox[{"BarLegend", "[", 
+          RowBox[{"{", 
+           RowBox[{"colors", ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Min", "[", 
+               RowBox[{"barMin", ",", "barMax"}], "]"}], ",", 
+              RowBox[{"Max", "[", 
+               RowBox[{"barMin", ",", "barMax"}], "]"}]}], "}"}]}], "}"}], 
+          "]"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Text", "[", 
+       RowBox[{"Style", "[", 
+        RowBox[{"\"\<    threadCount files not found\>\"", ",", "20", ",", 
+         RowBox[{"RGBColor", "[", 
+          RowBox[{"0.95", ",", "0.4", ",", "0.6"}], "]"}]}], "]"}], "]"}]}], 
+     "]"}]}], ",", 
+   RowBox[{"Row", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"i1", ",", 
+           RowBox[{"imageNames", "[", 
+            RowBox[{"[", "1", "]"}], "]"}], ",", "\"\<\>\""}], "}"}], ",", 
+         "imageNames"}], "}"}], "]"}], ",", 
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"vh1", ",", "\"\<H\>\"", ",", "\"\<\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"\"\<V\>\"", ",", "\"\<H\>\""}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"rot1", ",", "0", ",", "\"\<\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"0", ",", "90", ",", "180", ",", "270"}], "}"}], ",", 
+         RowBox[{"ControlType", "\[Rule]", "\"\<PopupMenu\>\""}]}], "}"}], 
+       "]"}], ",", 
+      RowBox[{"Spacer", "[", "5", "]"}], ",", 
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"flip1", ",", "False", ",", "\"\<flip\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"False", ",", "True"}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Spacer", "[", "27", "]"}], ",", 
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"kind", ",", "2", ",", "\"\<\>\""}], "}"}], ",", 
+         RowBox[{"Thread", "[", 
+          RowBox[{
+           RowBox[{"Range", "[", 
+            RowBox[{"Length", "@", "allSuf"}], "]"}], "\[Rule]", "allSuf"}], 
+          "]"}], ",", 
+         RowBox[{"ControlType", "\[Rule]", "PopupMenu"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Spacer", "[", "27", "]"}], ",", 
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"i2", ",", 
+           RowBox[{"imageNames", "[", 
+            RowBox[{"[", "2", "]"}], "]"}], ",", "\"\<\>\""}], "}"}], ",", 
+         "imageNames"}], "}"}], "]"}], ",", 
+      RowBox[{"Spacer", "[", "5", "]"}], ",", 
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"vh2", ",", "\"\<H\>\"", ",", "\"\<\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"\"\<V\>\"", ",", "\"\<H\>\""}], "}"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"rot2", ",", "0", ",", "\"\<\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"0", ",", "90", ",", "180", ",", "270"}], "}"}]}], "}"}], 
+       "]"}], ",", 
+      RowBox[{"Spacer", "[", "5", "]"}], ",", 
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"flip2", ",", "False", ",", "\"\<flip\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"False", ",", "True"}], "}"}]}], "}"}], "]"}]}], "}"}], 
+    "]"}], ",", 
+   RowBox[{"Row", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+          "colors", ",", "\"\<ThermometerColors\>\"", ",", "\"\< \>\""}], 
+          "}"}], ",", "allColors"}], "}"}], "]"}], ",", 
+      RowBox[{"Spacer", "[", "5", "]"}], ",", 
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"lam", ",", "0", ",", "\"\<color\\nlow\>\""}], "}"}], ",", 
+         "0", ",", "1"}], "}"}], "]"}], ",", 
+      RowBox[{"Spacer", "[", "5", "]"}], ",", 
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"lam2", ",", "1", ",", "\"\<color\\nhigh\>\""}], "}"}], ",",
+          "0", ",", "1"}], "}"}], "]"}], ",", 
+      RowBox[{"Spacer", "[", "10", "]"}], ",", 
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"siz", ",", "1", ",", "\"\<size\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"1", "/", "2"}], ",", "1", ",", "2", ",", "3", ",", "4"}], 
+          "}"}], ",", 
+         RowBox[{"ControlType", "\[Rule]", "PopupMenu"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Spacer", "[", "5", "]"}], ",", 
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"map", ",", "\"\<weave\>\"", ",", "\"\<\>\""}], "}"}], ",", 
+         
+         RowBox[{"{", 
+          RowBox[{"\"\<weave\>\"", ",", "\"\<angle\>\""}], "}"}]}], "}"}], 
+       "]"}]}], "}"}], "]"}], ",", 
+   RowBox[{"SynchronousUpdating", "\[Rule]", "False"}], ",", 
+   RowBox[{"SaveDefinitions", "\[Rule]", "False"}], ",", 
+   RowBox[{"Initialization", "\[RuleDelayed]", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"allColors", "=", 
+       RowBox[{"ColorData", "[", "\"\<Gradients\>\"", "]"}]}], ";", 
+      RowBox[{"dir", "=", 
+       RowBox[{"FileNameJoin", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<weaveMaps\>\""}],
+          "}"}], "]"}]}], ";", 
+      RowBox[{"allWeaveMaps", "=", 
+       RowBox[{"FileNames", "[", 
+        RowBox[{"\"\<*.m\>\"", ",", "dir"}], "]"}]}], ";", 
+      RowBox[{"allFiles", "=", 
+       RowBox[{"FileBaseName", "/@", "allWeaveMaps"}]}], ";", 
+      RowBox[{"allSuf", "=", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<thick/small (1-2)\>\"", ",", "\"\<thick/large (1-4)\>\"", ",", 
+         "\"\<medium (0.75-3)\>\"", ",", "\"\<thin/small (0.5-2)\>\"", ",", 
+         "\"\<thin/large (0.5-4)\>\""}], "}"}]}], ";", 
+      RowBox[{"suffixes", "=", 
+       RowBox[{"Flatten", "@", 
+        RowBox[{"Rest", "@", 
+         RowBox[{"Transpose", "@", 
+          RowBox[{"StringSplit", "[", "allSuf", "]"}]}]}]}]}], ";", 
+      RowBox[{"imageNames", "=", 
+       RowBox[{"StringDrop", "[", 
+        RowBox[{
+         RowBox[{"Union", "@", 
+          RowBox[{"First", "@", 
+           RowBox[{"Thread", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"StringSplit", "[", 
+               RowBox[{"#", ",", "\"\<(\>\""}], "]"}], "&"}], "/@", 
+             "allFiles"}], "]"}]}]}], ",", "11"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"i1Old", "=", "0"}], ";", 
+      RowBox[{"i2Old", "=", "0"}], ";", 
+      RowBox[{"kindOld", "=", "0"}], ";"}], "\[IndentingNewLine]", ")"}]}]}], 
+  "]"}]], "Input"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`colors$$ = 
+    "SunsetColors", $CellContext`flip1$$ = False, $CellContext`flip2$$ = 
+    False, $CellContext`i1$$ = "L36", $CellContext`i2$$ = 
+    "L29", $CellContext`kind$$ = 5, $CellContext`lam$$ = 
+    0, $CellContext`lam2$$ = 1, $CellContext`map$$ = 
+    "angle", $CellContext`rot1$$ = 0, $CellContext`rot2$$ = 
+    180, $CellContext`siz$$ = 1, $CellContext`vh1$$ = 
+    "H", $CellContext`vh2$$ = "H", Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`i1$$], "F205", ""}, {
+      "F205", "F260", "L01", "L03", "L04", "L05", "L06", "L07", "L08", "L09", 
+       "L10", "L11", "L12", "L13", "L14", "L15", "L16", "L17", "L18", "L19", 
+       "L20", "L21", "L22", "L23", "L26", "L27", "L28", "L29", "L30", "L31", 
+       "L32", "L33", "L34", "L35", "L36", "Saint_Praxedis"}}, {{
+       Hold[$CellContext`vh1$$], "H", ""}, {"V", "H"}}, {{
+       Hold[$CellContext`rot1$$], 0, ""}, {0, 90, 180, 270}}, {{
+       Hold[$CellContext`flip1$$], False, "flip"}, {False, True}}, {{
+       Hold[$CellContext`kind$$], 2, ""}, {
+      1 -> "thick/small (1-2)", 2 -> "thick/large (1-4)", 3 -> 
+       "medium (0.75-3)", 4 -> "thin/small (0.5-2)", 5 -> 
+       "thin/large (0.5-4)"}}, {{
+       Hold[$CellContext`i2$$], "F260", ""}, {
+      "F205", "F260", "L01", "L03", "L04", "L05", "L06", "L07", "L08", "L09", 
+       "L10", "L11", "L12", "L13", "L14", "L15", "L16", "L17", "L18", "L19", 
+       "L20", "L21", "L22", "L23", "L26", "L27", "L28", "L29", "L30", "L31", 
+       "L32", "L33", "L34", "L35", "L36", "Saint_Praxedis"}}, {{
+       Hold[$CellContext`vh2$$], "H", ""}, {"V", "H"}}, {{
+       Hold[$CellContext`rot2$$], 0, ""}, {0, 90, 180, 270}}, {{
+       Hold[$CellContext`flip2$$], False, "flip"}, {False, True}}, {
+      Hold[
+       Row[{
+         Manipulate`Place[1], 
+         Manipulate`Place[2], 
+         Manipulate`Place[3], 
+         Spacer[5], 
+         Manipulate`Place[4], 
+         Spacer[27], 
+         Manipulate`Place[5], 
+         Spacer[27], 
+         Manipulate`Place[6], 
+         Spacer[5], 
+         Manipulate`Place[7], 
+         Manipulate`Place[8], 
+         Spacer[5], 
+         Manipulate`Place[9]}]], Manipulate`Dump`ThisIsNotAControl}, {{
+       Hold[$CellContext`colors$$], "ThermometerColors", " "}, {
+      "AlpineColors", "Aquamarine", "ArmyColors", "AtlanticColors", 
+       "AuroraColors", "AvocadoColors", "BeachColors", "BlueGreenYellow", 
+       "BrassTones", "BrightBands", "BrownCyanTones", "CandyColors", 
+       "CherryTones", "CMYKColors", "CoffeeTones", "DarkBands", "DarkRainbow",
+        "DarkTerrain", "DeepSeaColors", "FallColors", "FruitPunchColors", 
+       "FuchsiaTones", "GrayTones", "GrayYellowTones", "GreenBrownTerrain", 
+       "GreenPinkTones", "IslandColors", "LakeColors", "LightTemperatureMap", 
+       "LightTerrain", "MintColors", "NeonColors", "Pastel", "PearlColors", 
+       "PigeonTones", "PlumColors", "Rainbow", "RedBlueTones", 
+       "RedGreenSplit", "RoseColors", "RustTones", "SandyTerrain", 
+       "SiennaTones", "SolarColors", "SouthwestColors", "StarryNightColors", 
+       "SunsetColors", "TemperatureMap", "ThermometerColors", 
+       "ValentineTones", "WatermelonColors"}}, {{
+       Hold[$CellContext`lam$$], 0, "color\nlow"}, 0, 1}, {{
+       Hold[$CellContext`lam2$$], 1, "color\nhigh"}, 0, 1}, {{
+       Hold[$CellContext`siz$$], 1, "size"}, {
+       Rational[1, 2], 1, 2, 3, 4}}, {{
+       Hold[$CellContext`map$$], "weave", ""}, {"weave", "angle"}}, {
+      Hold[
+       Row[{
+         Manipulate`Place[10], 
+         Spacer[5], 
+         Manipulate`Place[11], 
+         Spacer[5], 
+         Manipulate`Place[12], 
+         Spacer[10], 
+         Manipulate`Place[13], 
+         Spacer[5], 
+         Manipulate`Place[14]}]], Manipulate`Dump`ThisIsNotAControl}}, 
+    Typeset`size$$ = {880., {411., 416.}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    False, $CellContext`i1$217715$$ = 0, $CellContext`vh1$217716$$ = 
+    False, $CellContext`rot1$217717$$ = 0, $CellContext`flip1$217718$$ = 
+    False, $CellContext`kind$217719$$ = False, $CellContext`i2$217720$$ = 
+    0, $CellContext`vh2$217721$$ = False, $CellContext`rot2$217722$$ = 
+    0, $CellContext`flip2$217723$$ = False, $CellContext`colors$217724$$ = 
+    0, $CellContext`lam$217725$$ = 0, $CellContext`lam2$217726$$ = 
+    0, $CellContext`siz$217727$$ = 0, $CellContext`map$217728$$ = False}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     2, StandardForm, 
+      "Variables" :> {$CellContext`colors$$ = 
+        "ThermometerColors", $CellContext`flip1$$ = 
+        False, $CellContext`flip2$$ = False, $CellContext`i1$$ = 
+        "F205", $CellContext`i2$$ = "F260", $CellContext`kind$$ = 
+        2, $CellContext`lam$$ = 0, $CellContext`lam2$$ = 
+        1, $CellContext`map$$ = "weave", $CellContext`rot1$$ = 
+        0, $CellContext`rot2$$ = 0, $CellContext`siz$$ = 
+        1, $CellContext`vh1$$ = "H", $CellContext`vh2$$ = "H"}, 
+      "ControllerVariables" :> {
+        Hold[$CellContext`i1$$, $CellContext`i1$217715$$, 0], 
+        Hold[$CellContext`vh1$$, $CellContext`vh1$217716$$, False], 
+        Hold[$CellContext`rot1$$, $CellContext`rot1$217717$$, 0], 
+        Hold[$CellContext`flip1$$, $CellContext`flip1$217718$$, False], 
+        Hold[$CellContext`kind$$, $CellContext`kind$217719$$, False], 
+        Hold[$CellContext`i2$$, $CellContext`i2$217720$$, 0], 
+        Hold[$CellContext`vh2$$, $CellContext`vh2$217721$$, False], 
+        Hold[$CellContext`rot2$$, $CellContext`rot2$217722$$, 0], 
+        Hold[$CellContext`flip2$$, $CellContext`flip2$217723$$, False], 
+        Hold[$CellContext`colors$$, $CellContext`colors$217724$$, 0], 
+        Hold[$CellContext`lam$$, $CellContext`lam$217725$$, 0], 
+        Hold[$CellContext`lam2$$, $CellContext`lam2$217726$$, 0], 
+        Hold[$CellContext`siz$$, $CellContext`siz$217727$$, 0], 
+        Hold[$CellContext`map$$, $CellContext`map$217728$$, False]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> (If[
+         Or[$CellContext`i1$$ != $CellContext`i1Old, $CellContext`i2$$ != \
+$CellContext`i2Old, $CellContext`kind$$ != $CellContext`kindOld], \
+$CellContext`suffix = 
+          Part[$CellContext`suffixes, $CellContext`kind$$]; \
+$CellContext`file1 = FileNameJoin[{$CellContext`dir, 
+             StringJoin[
+             "threadCount", $CellContext`i1$$, $CellContext`suffix, 
+              ".m"]}]; $CellContext`file2 = FileNameJoin[{$CellContext`dir, 
+             StringJoin[
+             "threadCount", $CellContext`i2$$, $CellContext`suffix, ".m"]}]; 
+         If[
+           And[
+            FileExistsQ[$CellContext`file1], 
+            FileExistsQ[$CellContext`file2]], 
+           Get[$CellContext`file1]; {$CellContext`name1, $CellContext`h1, \
+$CellContext`hang1, $CellContext`v1, $CellContext`vang1} = \
+{$CellContext`fileName, $CellContext`matH, $CellContext`angH, \
+$CellContext`matV, $CellContext`angV}; 
+           Get[$CellContext`file2]; {$CellContext`name2, $CellContext`h2, \
+$CellContext`hang2, $CellContext`v2, $CellContext`vang2} = \
+{$CellContext`fileName, $CellContext`matH, $CellContext`angH, \
+$CellContext`matV, $CellContext`angV}; $CellContext`filesFound = True; 
+           Null, $CellContext`filesFound = False; 
+           Null]; $CellContext`i1Old = $CellContext`i1$$; $CellContext`i2Old = \
+$CellContext`i2$$; $CellContext`kindOld = $CellContext`kind$$; Null]; Which[
+         And[$CellContext`vh1$$ == "H", $CellContext`map$$ == 
+          "angle"], $CellContext`flatH1 = Select[
+            Flatten[$CellContext`hang1], -Infinity < # < 
+            Infinity& ]; {$CellContext`disp1, $CellContext`minh1, \
+$CellContext`maxh1, $CellContext`stdh1} = {$CellContext`hang1, 
+            Min[$CellContext`flatH1], 
+            Max[$CellContext`flatH1], 
+            StandardDeviation[$CellContext`flatH1]}; Null, 
+         And[$CellContext`vh1$$ == "V", $CellContext`map$$ == 
+          "angle"], $CellContext`flatV1 = Select[
+            Flatten[$CellContext`vang1], -Infinity < # < 
+            Infinity& ]; {$CellContext`disp1, $CellContext`minh1, \
+$CellContext`maxh1, $CellContext`stdh1} = {$CellContext`vang1, 
+            Min[$CellContext`flatV1], 
+            Max[$CellContext`flatV1], 
+            StandardDeviation[$CellContext`flatV1]}; Null, 
+         And[$CellContext`vh1$$ == "H", $CellContext`map$$ == 
+          "weave"], $CellContext`flatH1 = Select[
+            Flatten[$CellContext`h1], -Infinity < # < 
+            Infinity& ]; {$CellContext`disp1, $CellContext`minh1, \
+$CellContext`maxh1, $CellContext`stdh1} = {$CellContext`h1, 
+            Min[$CellContext`flatH1], 
+            Max[$CellContext`flatH1], 
+            StandardDeviation[$CellContext`flatH1]}; Null, 
+         And[$CellContext`vh1$$ == "V", $CellContext`map$$ == 
+          "weave"], $CellContext`flatV1 = Select[
+            Flatten[$CellContext`v1], -Infinity < # < 
+            Infinity& ]; {$CellContext`disp1, $CellContext`minh1, \
+$CellContext`maxh1, $CellContext`stdh1} = {$CellContext`v1, 
+            Min[$CellContext`flatV1], 
+            Max[$CellContext`flatV1], 
+            StandardDeviation[$CellContext`flatV1]}; Null]; Which[
+         And[$CellContext`vh2$$ == "H", $CellContext`map$$ == 
+          "angle"], $CellContext`flatH2 = Select[
+            Flatten[$CellContext`hang2], -Infinity < # < 
+            Infinity& ]; {$CellContext`disp2, $CellContext`minh2, \
+$CellContext`maxh2, $CellContext`stdh2} = {$CellContext`hang2, 
+            Min[$CellContext`flatH2], 
+            Max[$CellContext`flatH2], 
+            StandardDeviation[$CellContext`flatH2]}; Null, 
+         And[$CellContext`vh2$$ == "V", $CellContext`map$$ == 
+          "angle"], $CellContext`flatV2 = Select[
+            Flatten[$CellContext`vang2], -Infinity < # < 
+            Infinity& ]; {$CellContext`disp2, $CellContext`minh2, \
+$CellContext`maxh2, $CellContext`stdh2} = {$CellContext`vang2, 
+            Min[$CellContext`flatV2], 
+            Max[$CellContext`flatV2], 
+            StandardDeviation[$CellContext`flatV2]}; Null, 
+         And[$CellContext`vh2$$ == "H", $CellContext`map$$ == 
+          "weave"], $CellContext`flatH2 = Select[
+            Flatten[$CellContext`h2], -Infinity < # < 
+            Infinity& ]; {$CellContext`disp2, $CellContext`minh2, \
+$CellContext`maxh2, $CellContext`stdh2} = {$CellContext`h2, 
+            Min[$CellContext`flatH2], 
+            Max[$CellContext`flatH2], 
+            StandardDeviation[$CellContext`flatH2]}; Null, 
+         And[$CellContext`vh2$$ == "V", $CellContext`map$$ == 
+          "weave"], $CellContext`flatV2 = Select[
+            Flatten[$CellContext`v2], -Infinity < # < 
+            Infinity& ]; {$CellContext`disp2, $CellContext`minh2, \
+$CellContext`maxh2, $CellContext`stdh2} = {$CellContext`v2, 
+            Min[$CellContext`flatV2], 
+            Max[$CellContext`flatV2], 
+            StandardDeviation[$CellContext`flatV2]}; 
+         Null]; {$CellContext`minh, $CellContext`maxh} = {
+          Min[$CellContext`minh1, $CellContext`minh2], 
+          Max[$CellContext`maxh1, $CellContext`maxh2]}; {
+          Part[$CellContext`disp1, 1, 1], 
+          Part[$CellContext`disp1, 1, 2], 
+          Part[$CellContext`disp2, 1, 1], 
+          
+          Part[$CellContext`disp2, 1, 
+           2]} = {$CellContext`minh, $CellContext`maxh, $CellContext`minh, \
+$CellContext`maxh}; $CellContext`maxdim = Max[{
+           Dimensions[$CellContext`disp1], 
+           Dimensions[$CellContext`disp2]}]; 
+       Which[$CellContext`rot1$$ == 0, $CellContext`rotFun1 = 
+         Identity, $CellContext`rot1$$ == 90, $CellContext`rotFun1 = Reverse[
+           Transpose[#]]& , $CellContext`rot1$$ == 180, $CellContext`rotFun1 = 
+         Transpose[
+           Reverse[
+            Transpose[
+             Reverse[#]]]]& , $CellContext`rot1$$ == 
+         270, $CellContext`rotFun1 = Transpose[
+           Reverse[#]]& ]; 
+       Which[$CellContext`rot2$$ == 0, $CellContext`rotFun2 = 
+         Identity, $CellContext`rot2$$ == 90, $CellContext`rotFun2 = Reverse[
+           Transpose[#]]& , $CellContext`rot2$$ == 180, $CellContext`rotFun2 = 
+         Transpose[
+           Reverse[
+            Transpose[
+             Reverse[#]]]]& , $CellContext`rot2$$ == 
+         270, $CellContext`rotFun2 = Transpose[
+           Reverse[#]]& ]; 
+       If[$CellContext`flip1$$ == True, $CellContext`flipFun1 = 
+         Reverse, $CellContext`flipFun1 = Identity]; 
+       If[$CellContext`flip2$$ == True, $CellContext`flipFun2 = 
+         Reverse, $CellContext`flipFun2 = 
+         Identity]; $CellContext`barMin = (
+           1 - $CellContext`lam$$) $CellContext`minh + $CellContext`lam$$ \
+$CellContext`maxh; $CellContext`barMax = (
+           1 - $CellContext`lam2$$) $CellContext`minh + $CellContext`lam2$$ \
+$CellContext`maxh; If[$CellContext`filesFound == True, 
+         Row[{
+           GraphicsRow[{
+             ArrayPlot[
+              $CellContext`rotFun1[
+               $CellContext`flipFun1[
+                Map[
+                Clip[#, {$CellContext`barMin, $CellContext`barMax}]& , \
+$CellContext`disp1, 1]]], ColorFunction -> $CellContext`colors$$, 
+              PixelConstrained -> 2 $CellContext`siz$$, Frame -> False], 
+             ArrayPlot[
+              $CellContext`rotFun2[
+               $CellContext`flipFun2[
+                Map[
+                Clip[#, {$CellContext`barMin, $CellContext`barMax}]& , \
+$CellContext`disp2, 1]]], ColorFunction -> $CellContext`colors$$, 
+              PixelConstrained -> 2 $CellContext`siz$$, Frame -> False]}, 
+            ImageSize -> 4.2 $CellContext`siz$$ $CellContext`maxdim, 
+            AspectRatio -> 1, Background -> RGBColor[0.95, 0.95, 0.95]], 
+           BarLegend[{$CellContext`colors$$, {
+              Min[$CellContext`barMin, $CellContext`barMax], 
+              Max[$CellContext`barMin, $CellContext`barMax]}}]}], 
+         Text[
+          Style["    threadCount files not found", 20, 
+           RGBColor[0.95, 0.4, 0.6]]]]), 
+      "Specifications" :> {{{$CellContext`i1$$, "F205", ""}, {
+         "F205", "F260", "L01", "L03", "L04", "L05", "L06", "L07", "L08", 
+          "L09", "L10", "L11", "L12", "L13", "L14", "L15", "L16", "L17", 
+          "L18", "L19", "L20", "L21", "L22", "L23", "L26", "L27", "L28", 
+          "L29", "L30", "L31", "L32", "L33", "L34", "L35", "L36", 
+          "Saint_Praxedis"}, ControlPlacement -> 
+         1}, {{$CellContext`vh1$$, "H", ""}, {"V", "H"}, ControlPlacement -> 
+         2}, {{$CellContext`rot1$$, 0, ""}, {0, 90, 180, 270}, ControlType -> 
+         "PopupMenu", ControlPlacement -> 
+         3}, {{$CellContext`flip1$$, False, "flip"}, {False, True}, 
+         ControlPlacement -> 4}, {{$CellContext`kind$$, 2, ""}, {
+         1 -> "thick/small (1-2)", 2 -> "thick/large (1-4)", 3 -> 
+          "medium (0.75-3)", 4 -> "thin/small (0.5-2)", 5 -> 
+          "thin/large (0.5-4)"}, ControlType -> PopupMenu, ControlPlacement -> 
+         5}, {{$CellContext`i2$$, "F260", ""}, {
+         "F205", "F260", "L01", "L03", "L04", "L05", "L06", "L07", "L08", 
+          "L09", "L10", "L11", "L12", "L13", "L14", "L15", "L16", "L17", 
+          "L18", "L19", "L20", "L21", "L22", "L23", "L26", "L27", "L28", 
+          "L29", "L30", "L31", "L32", "L33", "L34", "L35", "L36", 
+          "Saint_Praxedis"}, ControlPlacement -> 
+         6}, {{$CellContext`vh2$$, "H", ""}, {"V", "H"}, ControlPlacement -> 
+         7}, {{$CellContext`rot2$$, 0, ""}, {0, 90, 180, 270}, 
+         ControlPlacement -> 8}, {{$CellContext`flip2$$, False, "flip"}, {
+         False, True}, ControlPlacement -> 9}, 
+        Row[{
+          Manipulate`Place[1], 
+          Manipulate`Place[2], 
+          Manipulate`Place[3], 
+          Spacer[5], 
+          Manipulate`Place[4], 
+          Spacer[27], 
+          Manipulate`Place[5], 
+          Spacer[27], 
+          Manipulate`Place[6], 
+          Spacer[5], 
+          Manipulate`Place[7], 
+          Manipulate`Place[8], 
+          Spacer[5], 
+          Manipulate`Place[9]}], {{$CellContext`colors$$, "ThermometerColors",
+           " "}, {"AlpineColors", "Aquamarine", "ArmyColors", 
+          "AtlanticColors", "AuroraColors", "AvocadoColors", "BeachColors", 
+          "BlueGreenYellow", "BrassTones", "BrightBands", "BrownCyanTones", 
+          "CandyColors", "CherryTones", "CMYKColors", "CoffeeTones", 
+          "DarkBands", "DarkRainbow", "DarkTerrain", "DeepSeaColors", 
+          "FallColors", "FruitPunchColors", "FuchsiaTones", "GrayTones", 
+          "GrayYellowTones", "GreenBrownTerrain", "GreenPinkTones", 
+          "IslandColors", "LakeColors", "LightTemperatureMap", "LightTerrain",
+           "MintColors", "NeonColors", "Pastel", "PearlColors", "PigeonTones",
+           "PlumColors", "Rainbow", "RedBlueTones", "RedGreenSplit", 
+          "RoseColors", "RustTones", "SandyTerrain", "SiennaTones", 
+          "SolarColors", "SouthwestColors", "StarryNightColors", 
+          "SunsetColors", "TemperatureMap", "ThermometerColors", 
+          "ValentineTones", "WatermelonColors"}, ControlPlacement -> 
+         10}, {{$CellContext`lam$$, 0, "color\nlow"}, 0, 1, ControlPlacement -> 
+         11}, {{$CellContext`lam2$$, 1, "color\nhigh"}, 0, 1, 
+         ControlPlacement -> 12}, {{$CellContext`siz$$, 1, "size"}, {
+          Rational[1, 2], 1, 2, 3, 4}, ControlType -> PopupMenu, 
+         ControlPlacement -> 13}, {{$CellContext`map$$, "weave", ""}, {
+         "weave", "angle"}, ControlPlacement -> 14}, 
+        Row[{
+          Manipulate`Place[10], 
+          Spacer[5], 
+          Manipulate`Place[11], 
+          Spacer[5], 
+          Manipulate`Place[12], 
+          Spacer[10], 
+          Manipulate`Place[13], 
+          Spacer[5], 
+          Manipulate`Place[14]}]}, 
+      "Options" :> {SynchronousUpdating -> False}, "DefaultOptions" :> {}],
+     ImageSizeCache->{925., {473., 478.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    Initialization:>(($CellContext`allColors = 
+       ColorData["Gradients"]; $CellContext`dir = FileNameJoin[{
+          NotebookDirectory[], "weaveMaps"}]; $CellContext`allWeaveMaps = 
+       FileNames["*.m", $CellContext`dir]; $CellContext`allFiles = 
+       Map[FileBaseName, $CellContext`allWeaveMaps]; $CellContext`allSuf = {
+        "thick/small (1-2)", "thick/large (1-4)", "medium (0.75-3)", 
+         "thin/small (0.5-2)", "thin/large (0.5-4)"}; $CellContext`suffixes = 
+       Flatten[
+         Rest[
+          Transpose[
+           StringSplit[$CellContext`allSuf]]]]; $CellContext`imageNames = 
+       StringDrop[
+         Union[
+          First[
+           Thread[
+            Map[StringSplit[#, "("]& , $CellContext`allFiles]]]], 
+         11]; $CellContext`i1Old = 0; $CellContext`i2Old = 
+       0; $CellContext`kindOld = 0; Null); Typeset`initDone$$ = True),
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Input",
+ CellChangeTimes->{3.676533821579988*^9}]
+},
+WindowSize->{1406, 855},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 11, \
+2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 22040, 582, 964, "Input"],
+Cell[22601, 604, 19565, 370, 968, InheritFromParent]
+}
+]
+*)
+

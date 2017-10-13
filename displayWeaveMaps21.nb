@@ -1,0 +1,1180 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     50566,       1172]
+NotebookOptionsPosition[     50188,       1154]
+NotebookOutlinePosition[     50547,       1170]
+CellTagsIndexPosition[     50504,       1167]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"Manipulate", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{"snap", "\[Equal]", "True"}], ",", 
+      RowBox[{
+       RowBox[{"Export", "[", 
+        RowBox[{
+         RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"NotebookDirectory", "[", "]"}], ",", 
+            RowBox[{
+             RowBox[{"imageNames", "[", 
+              RowBox[{"[", "thisImg", "]"}], "]"}], "<>", "\"\<Snapshot\>\"", 
+             "<>", 
+             RowBox[{"ToString", "[", "snapCount", "]"}], "<>", 
+             "\"\<.pdf\>\""}]}], "}"}], "]"}], ",", "gGrid"}], "]"}], ";", 
+       RowBox[{"snap", "=", "False"}], ";", 
+       RowBox[{"snapCount", "=", 
+        RowBox[{"snapCount", "+", "1"}]}], ";"}]}], "]"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"newDir", "\[Equal]", "True"}], "||", 
+       RowBox[{"startDir", "\[Equal]", "True"}]}], ",", 
+      RowBox[{
+       RowBox[{"thisChoice", "=", 
+        RowBox[{"SystemDialogInput", "[", 
+         RowBox[{"\"\<Directory\>\"", ",", 
+          RowBox[{"NotebookDirectory", "[", "]"}], ",", 
+          RowBox[{
+          "WindowTitle", "\[Rule]", 
+           "\"\<Please locate the folder weaveMaps\>\""}]}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"UnsameQ", "[", 
+          RowBox[{"thisChoice", ",", "$Canceled"}], "]"}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"thisDir", "=", "thisChoice"}], ";", 
+          RowBox[{"dir", "=", "thisDir"}], ";", 
+          RowBox[{"allFiles", "=", 
+           RowBox[{"FileBaseName", "/@", 
+            RowBox[{"FileNames", "[", 
+             RowBox[{"\"\<*.m\>\"", ",", "dir"}], "]"}]}]}], ";", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"names", ",", "pars"}], "}"}], "=", 
+           RowBox[{"Transpose", "[", 
+            RowBox[{"StringSplit", "[", 
+             RowBox[{
+              RowBox[{"StringDrop", "[", 
+               RowBox[{"allFiles", ",", 
+                RowBox[{"StringLength", "[", "pre", "]"}]}], "]"}], ",", 
+              "\"\<(\>\""}], "]"}], "]"}]}], ";", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{"imageNames", ",", "imagePars"}], "}"}], "=", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Union", "[", "names", "]"}], ",", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"StringJoin", "[", 
+                RowBox[{"\"\<(\>\"", ",", "#"}], "]"}], "&"}], "/@", 
+              "pars"}]}], "}"}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{"kindOld", "=", 
+           RowBox[{"thisImgOld", "=", 
+            RowBox[{"sizOld", "=", "0"}]}]}], ";", "\[IndentingNewLine]", 
+          RowBox[{"newDir", "=", "False"}], ";", 
+          RowBox[{"startDir", "=", "False"}], ";"}]}], "]"}], ";"}]}], "]"}], 
+    ";", "\[IndentingNewLine]", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"thisImg", "\[NotEqual]", "thisImgOld"}], ")"}], "||", 
+       RowBox[{"(", 
+        RowBox[{"kind", "\[NotEqual]", "kindOld"}], ")"}]}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"allSuf", "=", 
+        RowBox[{"imagePars", "[", 
+         RowBox[{"[", 
+          RowBox[{"Flatten", "@", 
+           RowBox[{"Position", "[", 
+            RowBox[{"names", ",", 
+             RowBox[{"imageNames", "[", 
+              RowBox[{"[", "thisImg", "]"}], "]"}]}], "]"}]}], "]"}], "]"}]}],
+        ";", "\[IndentingNewLine]", 
+       RowBox[{"Get", "[", 
+        RowBox[{"FileNameJoin", "[", 
+         RowBox[{"{", 
+          RowBox[{"dir", ",", 
+           RowBox[{"pre", "<>", 
+            RowBox[{"imageNames", "[", 
+             RowBox[{"[", "thisImg", "]"}], "]"}], "<>", 
+            RowBox[{"allSuf", "[", 
+             RowBox[{"[", 
+              RowBox[{"thisKind", "=", 
+               RowBox[{"Min", "[", 
+                RowBox[{
+                 RowBox[{"Length", "[", "allSuf", "]"}], ",", "kind"}], 
+                "]"}]}], "]"}], "]"}], "<>", "\"\<.m\>\""}]}], "}"}], "]"}], 
+        "]"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"allV", "=", 
+        RowBox[{"Select", "[", 
+         RowBox[{
+          RowBox[{"Flatten", "@", "matV"}], ",", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", "Infinity"}], "<", "#", "<", "Infinity"}], "&"}]}], 
+         "]"}]}], ";", 
+       RowBox[{"allH", "=", 
+        RowBox[{"Select", "[", 
+         RowBox[{
+          RowBox[{"Flatten", "@", "matH"}], ",", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", "Infinity"}], "<", "#", "<", "Infinity"}], "&"}]}], 
+         "]"}]}], ";", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"minV", ",", "maxV", ",", "meanVThread", ",", "STDVThread"}],
+          "}"}], "=", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Min", "@", "allV"}], ",", 
+          RowBox[{"Max", "@", "allV"}], ",", 
+          RowBox[{"Mean", "@", "allV"}], ",", 
+          RowBox[{"StandardDeviation", "@", "allV"}]}], "}"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"meanV", "=", 
+        RowBox[{"ToString", "[", 
+         RowBox[{"NumberForm", "[", 
+          RowBox[{"meanVThread", ",", "4"}], "]"}], "]"}]}], ";", 
+       RowBox[{"stdV", "=", 
+        RowBox[{"ToString", "[", 
+         RowBox[{"NumberForm", "[", 
+          RowBox[{"STDVThread", ",", "3"}], "]"}], "]"}]}], ";", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"minH", ",", "maxH", ",", "meanHThread", ",", "STDHThread"}],
+          "}"}], "=", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Min", "@", "allH"}], ",", 
+          RowBox[{"Max", "@", "allH"}], ",", 
+          RowBox[{"Mean", "@", "allH"}], ",", 
+          RowBox[{"StandardDeviation", "@", "allH"}]}], "}"}]}], ";", 
+       RowBox[{"meanH", "=", 
+        RowBox[{"ToString", "[", 
+         RowBox[{"NumberForm", "[", 
+          RowBox[{"meanHThread", ",", "4"}], "]"}], "]"}]}], ";", 
+       RowBox[{"stdH", "=", 
+        RowBox[{"ToString", "[", 
+         RowBox[{"NumberForm", "[", 
+          RowBox[{"STDHThread", ",", "3"}], "]"}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"angHFlat", "=", 
+        RowBox[{"Select", "[", 
+         RowBox[{
+          RowBox[{"Flatten", "@", "angH"}], ",", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", "Infinity"}], "<", "#", "<", "Infinity"}], "&"}]}], 
+         "]"}]}], ";", 
+       RowBox[{"angVFlat", "=", 
+        RowBox[{"Select", "[", 
+         RowBox[{
+          RowBox[{"Flatten", "@", "angV"}], ",", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"-", "Infinity"}], "<", "#", "<", "Infinity"}], "&"}]}], 
+         "]"}]}], ";", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"minDegH", ",", "maxDegH", ",", "stdAngH", ",", "minDiff"}], 
+         "}"}], "=", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Min", "@", "angHFlat"}], ",", 
+          RowBox[{"Max", "@", "angHFlat"}], ",", 
+          RowBox[{"StandardDeviation", "@", "angHFlat"}], ",", 
+          RowBox[{
+           RowBox[{"Min", "[", "angHFlat", "]"}], "-", 
+           RowBox[{"Max", "[", "angVFlat", "]"}]}]}], "}"}]}], ";", 
+       RowBox[{
+        RowBox[{"{", 
+         RowBox[{"minDegV", ",", "maxDegV", ",", "stdAngV", ",", "maxDiff"}], 
+         "}"}], "=", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"Min", "@", "angVFlat"}], ",", 
+          RowBox[{"Max", "@", "angVFlat"}], ",", 
+          RowBox[{"StandardDeviation", "@", "angVFlat"}], ",", 
+          RowBox[{
+           RowBox[{"Max", "[", "angHFlat", "]"}], "-", 
+           RowBox[{"Min", "[", "angVFlat", "]"}]}]}], "}"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"degH", "=", 
+        RowBox[{
+         RowBox[{"ToString", "[", 
+          RowBox[{"NumberForm", "[", 
+           RowBox[{"minDegH", ",", "3"}], "]"}], "]"}], "<>", "\"\< to \>\"", 
+         "<>", 
+         RowBox[{"ToString", "[", 
+          RowBox[{"NumberForm", "[", 
+           RowBox[{"maxDegH", ",", "3"}], "]"}], "]"}]}]}], ";", 
+       RowBox[{"degV", "=", 
+        RowBox[{
+         RowBox[{"ToString", "[", 
+          RowBox[{"NumberForm", "[", 
+           RowBox[{"minDegV", ",", "3"}], "]"}], "]"}], "<>", "\"\< to \>\"", 
+         "<>", 
+         RowBox[{"ToString", "[", 
+          RowBox[{"NumberForm", "[", 
+           RowBox[{"maxDegV", ",", "3"}], "]"}], "]"}]}]}], ";", 
+       RowBox[{"thisImgOld", "=", "thisImg"}], ";", 
+       RowBox[{"sizOld", "=", "0"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"kind", "=", 
+        RowBox[{"kindOld", "=", "thisKind"}]}], ";"}]}], "]"}], ";", 
+    "\[IndentingNewLine]", 
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{"siz", "\[NotEqual]", "sizOld"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"pngName", "=", 
+        RowBox[{"names", "[", 
+         RowBox[{"[", 
+          RowBox[{"First", "@", 
+           RowBox[{"First", "@", 
+            RowBox[{"Position", "[", 
+             RowBox[{"names", ",", 
+              RowBox[{"imageNames", "[", 
+               RowBox[{"[", "thisImg", "]"}], "]"}]}], "]"}]}]}], "]"}], 
+         "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"pngFileName", "=", 
+        RowBox[{"FindFile", "[", 
+         RowBox[{"pngName", "<>", "\"\<.png\>\""}], "]"}]}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{"pngFileName", "!=", "\"\<$Failed\>\""}], ",", 
+         RowBox[{
+          RowBox[{"pngExists", "=", "True"}], ";", "\[IndentingNewLine]", 
+          RowBox[{"png", "=", 
+           RowBox[{"Import", "[", "pngFileName", "]"}]}], ";", 
+          RowBox[{"pngSmall", "=", 
+           RowBox[{"ImageResize", "[", 
+            RowBox[{"png", ",", 
+             RowBox[{"600", " ", "siz"}]}], "]"}]}], ";"}], ",", 
+         RowBox[{
+          RowBox[{"pngExists", "=", "False"}], ";"}]}], "]"}], ";", 
+       "\[IndentingNewLine]", 
+       RowBox[{"sizOld", "=", "siz"}], ";"}]}], "]"}], ";", "\n", 
+    RowBox[{"Which", "[", 
+     RowBox[{
+      RowBox[{"disp", "\[Equal]", "\"\<histo\>\""}], ",", 
+      RowBox[{
+       RowBox[{"lab", "=", "lab2"}], ";", 
+       RowBox[{"gGrid", "=", 
+        RowBox[{"GraphicsGrid", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Histogram", "[", 
+               RowBox[{
+                RowBox[{"Flatten", "@", "matH"}], ",", "opts", ",", 
+                RowBox[{
+                "PlotLabel", "\[Rule]", 
+                 "\"\<horizontal thread density (threads/cm)\>\""}]}], "]"}], 
+              ",", 
+              RowBox[{"Histogram", "[", 
+               RowBox[{
+                RowBox[{"Flatten", "@", "matV"}], ",", "opts", ",", 
+                RowBox[{
+                "PlotLabel", "\[Rule]", 
+                 "\"\<vertical thread density (threads/cm)\>\""}]}], "]"}]}], 
+             "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Histogram", "[", 
+               RowBox[{
+                RowBox[{"Flatten", "@", "angH"}], ",", "opts", ",", 
+                RowBox[{
+                "PlotLabel", "\[Rule]", 
+                 "\"\<horizontal thread angles (degrees)\>\""}]}], "]"}], ",", 
+              RowBox[{"Histogram", "[", 
+               RowBox[{
+                RowBox[{"Flatten", "@", "angV"}], ",", "opts", ",", 
+                RowBox[{
+                "PlotLabel", "\[Rule]", 
+                 "\"\<vertical thread angles (degrees)\>\""}]}], "]"}]}], 
+             "}"}]}], "}"}], ",", 
+          RowBox[{"ImageSize", "\[Rule]", 
+           RowBox[{"700", " ", "siz"}]}]}], "]"}]}]}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{"disp", "\[Equal]", "\"\<summary\>\""}], ",", 
+      RowBox[{
+       RowBox[{"lab", "=", "lab1"}], ";", 
+       RowBox[{"gGrid", "=", 
+        RowBox[{"GraphicsGrid", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"ArrayPlot", "[", 
+               RowBox[{
+                RowBox[{"Clip", "[", 
+                 RowBox[{"matH", ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"meanHThread", "-", "3"}], ",", 
+                    RowBox[{"meanHThread", "+", "3"}]}], "}"}]}], "]"}], ",", 
+                
+                RowBox[{"ColorRules", "\[Rule]", 
+                 RowBox[{"{", 
+                  RowBox[{"Infinity", "\[Rule]", "Black"}], "}"}]}], ",", 
+                RowBox[{"ColorFunction", "\[Rule]", "colors"}], ",", 
+                RowBox[{"PlotLabel", "\[Rule]", 
+                 RowBox[{
+                 "\"\<horizontal thread density (\>\"", "<>", "meanH", "<>", 
+                  "\"\< +/- \>\"", "<>", "stdH", "<>", 
+                  "\"\< threads/cm)\>\""}]}]}], "]"}], ",", 
+              RowBox[{"ArrayPlot", "[", 
+               RowBox[{
+                RowBox[{"Clip", "[", 
+                 RowBox[{"matV", ",", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"meanVThread", "-", "3"}], ",", 
+                    RowBox[{"meanVThread", "+", "3"}]}], "}"}]}], "]"}], ",", 
+                
+                RowBox[{"ColorRules", "\[Rule]", 
+                 RowBox[{"{", 
+                  RowBox[{"Infinity", "\[Rule]", "Black"}], "}"}]}], ",", 
+                RowBox[{"ColorFunction", "\[Rule]", "colors"}], ",", 
+                RowBox[{"PlotLabel", "\[Rule]", 
+                 RowBox[{
+                 "\"\<vertical thread density (\>\"", "<>", "meanV", "<>", 
+                  "\"\< +/- \>\"", "<>", "stdV", "<>", 
+                  "\"\< threads/cm)\>\""}]}]}], "]"}]}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"ArrayPlot", "[", 
+               RowBox[{"angH", ",", 
+                RowBox[{"ColorRules", "\[Rule]", 
+                 RowBox[{"{", 
+                  RowBox[{"Infinity", "\[Rule]", "Black"}], "}"}]}], ",", 
+                RowBox[{"ColorFunction", "\[Rule]", "colors"}], ",", 
+                RowBox[{"PlotLabel", "\[Rule]", 
+                 RowBox[{"\"\<horizontal thread angles (+/-\>\"", "<>", 
+                  RowBox[{"ToString", "[", "stdAngH", "]"}], "<>", 
+                  "\"\< degrees) \>\""}]}]}], "]"}], ",", 
+              RowBox[{"ArrayPlot", "[", 
+               RowBox[{"angV", ",", 
+                RowBox[{"ColorRules", "\[Rule]", 
+                 RowBox[{"{", 
+                  RowBox[{"Infinity", "\[Rule]", "Black"}], "}"}]}], ",", 
+                RowBox[{"ColorFunction", "\[Rule]", "colors"}], ",", 
+                RowBox[{"PlotLabel", "\[Rule]", 
+                 RowBox[{"\"\<vertical thread angles (+/-\>\"", "<>", 
+                  RowBox[{"ToString", "[", "stdAngV", "]"}], "<>", 
+                  "\"\< degrees) \>\""}]}]}], "]"}]}], "}"}]}], "}"}], ",", 
+          RowBox[{"ImageSize", "\[Rule]", 
+           RowBox[{"700", " ", "siz"}]}]}], "]"}]}]}], ",", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"disp", "\[Equal]", "\"\<Hthread\>\""}], "||", 
+       RowBox[{"disp", "==", "\"\<Vthread\>\""}], "||", 
+       RowBox[{"disp", "==", "\"\<Hangle\>\""}], "||", 
+       RowBox[{"disp", "==", "\"\<Vangle\>\""}]}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"lab", "=", "\"\<x-ray\>\""}], ";", "\[IndentingNewLine]", 
+       RowBox[{"gGrid", "=", 
+        RowBox[{"FlipView", "[", 
+         RowBox[{"{", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"Which", "[", 
+             RowBox[{
+              RowBox[{"disp", "\[Equal]", "\"\<Hthread\>\""}], ",", 
+              RowBox[{
+               RowBox[{"mat", "=", 
+                RowBox[{"Map", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"Clip", "[", 
+                    RowBox[{"#", ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"barMin", "=", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"1", "-", "lam"}], ")"}], "*", "minH"}], "+", 
+                    RowBox[{"lam", "*", "maxH"}]}]}], ",", 
+                    RowBox[{"barMax", "=", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"1", "-", "lam2"}], ")"}], "*", "minH"}], "+", 
+                    RowBox[{"lam2", "*", "maxH"}]}]}]}], "}"}]}], "]"}], 
+                   "&"}], ",", "matH", ",", "1"}], "]"}]}], ";", 
+               RowBox[{
+               "lab", "=", "\"\<Deviation of horizontal thread count\>\""}], 
+               ";"}], ",", "\[IndentingNewLine]", 
+              RowBox[{"disp", "\[Equal]", "\"\<Vthread\>\""}], ",", 
+              RowBox[{
+               RowBox[{"mat", "=", 
+                RowBox[{"Map", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"Clip", "[", 
+                    RowBox[{"#", ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"barMin", "=", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"1", "-", "lam"}], ")"}], "*", "minV"}], "+", 
+                    RowBox[{"lam", "*", "maxV"}]}]}], ",", 
+                    RowBox[{"barMax", "=", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"1", "-", "lam2"}], ")"}], "*", "minV"}], "+", 
+                    RowBox[{"lam2", "*", "maxV"}]}]}]}], "}"}]}], "]"}], 
+                   "&"}], ",", "matV", ",", "1"}], "]"}]}], ";", " ", 
+               RowBox[{
+               "lab", "=", "\"\<Deviation of vertical thread count\>\""}], 
+               ";"}], ",", "\[IndentingNewLine]", 
+              RowBox[{"disp", "\[Equal]", "\"\<Hangle\>\""}], ",", 
+              RowBox[{
+               RowBox[{"mat", "=", 
+                RowBox[{"Map", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"Clip", "[", 
+                    RowBox[{"#", ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"barMin", "=", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"1", "-", "lam"}], ")"}], "*", "minDegV"}], "+", 
+                    RowBox[{"lam", "*", "maxDegV"}]}]}], ",", 
+                    RowBox[{"barMax", "=", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"1", "-", "lam2"}], ")"}], "*", "minDegV"}], "+", 
+                    
+                    RowBox[{"lam2", "*", "maxDegV"}]}]}]}], "}"}]}], "]"}], 
+                   "&"}], ",", "angV", ",", "1"}], "]"}]}], ";", " ", 
+               RowBox[{"lab", "=", "\"\<Horizontal angle\>\""}], ";"}], ",", 
+              "\[IndentingNewLine]", 
+              RowBox[{"disp", "\[Equal]", "\"\<Vangle\>\""}], ",", 
+              RowBox[{
+               RowBox[{"mat", "=", 
+                RowBox[{"Map", "[", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{"Clip", "[", 
+                    RowBox[{"#", ",", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"barMin", "=", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"1", "-", "lam"}], ")"}], "*", "minDegH"}], "+", 
+                    RowBox[{"lam", "*", "maxDegH"}]}]}], ",", 
+                    RowBox[{"barMax", "=", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"1", "-", "lam2"}], ")"}], "*", "minDegH"}], "+", 
+                    
+                    RowBox[{"lam2", "*", "maxDegH"}]}]}]}], "}"}]}], "]"}], 
+                   "&"}], ",", "angH", ",", "1"}], "]"}]}], ";", " ", 
+               "\[IndentingNewLine]", 
+               RowBox[{"lab", "=", "\"\<Vertical angle\>\""}], ";"}]}], 
+             "\[IndentingNewLine]", "]"}], ";", 
+            RowBox[{"thisMat", "=", 
+             RowBox[{"Row", "[", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"ArrayPlot", "[", 
+                 RowBox[{"mat", ",", 
+                  RowBox[{"ColorRules", "\[Rule]", 
+                   RowBox[{"{", 
+                    RowBox[{"Infinity", "\[Rule]", "Black"}], "}"}]}], ",", 
+                  RowBox[{"ColorFunction", "\[Rule]", "colors"}], ",", 
+                  RowBox[{"Frame", "\[Rule]", "False"}], ",", 
+                  RowBox[{"ImageSize", "\[Rule]", 
+                   RowBox[{"600", " ", "siz"}]}]}], "]"}], ",", 
+                RowBox[{"BarLegend", "[", 
+                 RowBox[{"{", 
+                  RowBox[{"colors", ",", 
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"Min", "[", 
+                    RowBox[{"barMin", ",", "barMax"}], "]"}], ",", 
+                    RowBox[{"Max", "[", 
+                    RowBox[{"barMin", ",", "barMax"}], "]"}]}], "}"}]}], 
+                  "}"}], "]"}]}], "}"}], "]"}]}]}], ",", 
+           RowBox[{"If", "[", 
+            RowBox[{
+             RowBox[{"pngExists", "\[Equal]", "True"}], ",", "pngSmall", ",", 
+             "thisMat"}], "]"}]}], "}"}], "]"}]}]}]}], "\[IndentingNewLine]", 
+     "]"}]}], ",", "\[IndentingNewLine]", 
+   RowBox[{"Row", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Dynamic", "[", 
+       RowBox[{"Control", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{"thisImg", ",", "1", ",", "\"\<\>\""}], "}"}], ",", 
+          RowBox[{"Dynamic", "[", 
+           RowBox[{"Thread", "[", 
+            RowBox[{
+             RowBox[{"Range", "[", 
+              RowBox[{"Length", "@", "imageNames"}], "]"}], "\[Rule]", 
+             "imageNames"}], "]"}], "]"}], ",", 
+          RowBox[{"ControlType", "\[Rule]", "PopupMenu"}]}], "}"}], "]"}], 
+       "]"}], ",", 
+      RowBox[{"Spacer", "[", "10", "]"}], ",", 
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"kind", ",", "1", ",", "\"\<\>\""}], "}"}], ",", 
+         RowBox[{"Dynamic", "[", 
+          RowBox[{"Thread", "[", 
+           RowBox[{
+            RowBox[{"Range", "[", 
+             RowBox[{"Length", "@", "allSuf"}], "]"}], "\[Rule]", "allSuf"}], 
+           "]"}], "]"}], ",", 
+         RowBox[{"ControlType", "\[Rule]", "PopupMenu"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Spacer", "[", "10", "]"}], ",", 
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"siz", ",", "1", ",", "\"\<size\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"1", "/", "2"}], ",", 
+           RowBox[{"3", "/", "4"}], ",", "1", ",", "2", ",", "4"}], "}"}], 
+         ",", 
+         RowBox[{"ControlType", "\[Rule]", "PopupMenu"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Spacer", "[", "10", "]"}], ",", 
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"disp", ",", "\"\<summary\>\"", ",", "\"\<\>\""}], "}"}], 
+         ",", 
+         RowBox[{"{", 
+          RowBox[{
+          "\"\<summary\>\"", ",", "\"\<Hthread\>\"", ",", "\"\<Vthread\>\"", 
+           ",", "\"\<Hangle\>\"", ",", "\"\<Vangle\>\"", ",", 
+           "\"\<histo\>\""}], "}"}], ",", 
+         RowBox[{"ControlType", "\[Rule]", "SetterBar"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"newDir", ",", "False", ",", "\"\<\>\""}], "}"}], ",", 
+         RowBox[{
+          RowBox[{"Button", "[", 
+           RowBox[{
+            RowBox[{"Text", "[", "\"\<Change\\nDirectory\>\"", "]"}], ",", 
+            RowBox[{"newDir", "=", "True"}]}], "]"}], "&"}]}], "}"}], "]"}], 
+      ",", 
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"snap", ",", "False", ",", "\"\<\>\""}], "}"}], ",", 
+         RowBox[{
+          RowBox[{"Button", "[", 
+           RowBox[{
+            RowBox[{"Text", "[", "\"\<Snapshot\>\"", "]"}], ",", 
+            RowBox[{"snap", "=", "True"}]}], "]"}], "&"}]}], "}"}], "]"}]}], 
+     "}"}], "]"}], ",", "\[IndentingNewLine]", 
+   RowBox[{"Row", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{
+          "colors", ",", "\"\<ThermometerColors\>\"", ",", "\"\< \>\""}], 
+          "}"}], ",", "allColors"}], "}"}], "]"}], ",", 
+      RowBox[{"Spacer", "[", "15", "]"}], ",", 
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"lam", ",", "0", ",", "\"\<color\\nlow\>\""}], "}"}], ",", 
+         "0", ",", "1"}], "}"}], "]"}], ",", 
+      RowBox[{"Spacer", "[", "15", "]"}], ",", 
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"lam2", ",", "1", ",", "\"\<color\\nhigh\>\""}], "}"}], ",",
+          "0", ",", "1"}], "}"}], "]"}]}], "}"}], "]"}], ",", 
+   RowBox[{"FrameLabel", "\[Rule]", 
+    RowBox[{"Style", "[", 
+     RowBox[{
+      RowBox[{"Dynamic", "[", "lab", "]"}], ",", "Medium"}], "]"}]}], ",", 
+   RowBox[{"SynchronousUpdating", "\[Rule]", "False"}], ",", 
+   RowBox[{"SaveDefinitions", "\[Rule]", "False"}], ",", 
+   RowBox[{"Initialization", "\[RuleDelayed]", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"allColors", "=", 
+       RowBox[{"ColorData", "[", "\"\<Gradients\>\"", "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"startDir", "=", "True"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"opts", "=", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{
+         "ChartElementFunction", "\[Rule]", "\"\<GlassRectangle\>\""}], ",", 
+         RowBox[{"ChartStyle", "\[Rule]", "LightBlue"}]}], "}"}]}], ";", 
+      RowBox[{
+      "lab1", "=", 
+       "\"\<Deviation from painting-wide averages in thread count density (in \
+threads/cm) and angle (in degrees)\>\""}], ";", 
+      RowBox[{
+      "lab2", "=", "\"\<Histograms of thread count density and angles\>\""}], 
+      ";", 
+      RowBox[{"thisImgOld", "=", "0"}], ";", 
+      RowBox[{"sizOld", "=", "0"}], ";", 
+      RowBox[{"snapCount", "=", "1"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"kindOld", "=", "0"}], ";", 
+      RowBox[{"pre", "=", "\"\<threadCount\>\""}], ";", "\[IndentingNewLine]", 
+      RowBox[{"PrependTo", "[", 
+       RowBox[{"$Path", ",", 
+        RowBox[{"NotebookDirectory", "[", "]"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"thisDir", "=", "\"\<weaveMaps\>\""}], ";", 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"FileExistsQ", "@", 
+           RowBox[{"FileNameJoin", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"NotebookDirectory", "[", "]"}], ",", "thisDir"}], 
+             "}"}], "]"}]}], ",", 
+          RowBox[{
+           RowBox[{"PrependTo", "[", 
+            RowBox[{"$Path", ",", 
+             RowBox[{"FileNameJoin", "[", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"NotebookDirectory", "[", "]"}], ",", "thisDir"}], 
+               "}"}], "]"}]}], "]"}], ";"}]}], "]"}], ";"}], "*)"}], 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"FileExistsQ", "@", 
+         RowBox[{"FileNameJoin", "[", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"NotebookDirectory", "[", "]"}], ",", "thisDir", ",", 
+            "\"\<LXXpng\>\""}], "}"}], "]"}]}], ",", 
+        RowBox[{
+         RowBox[{"PrependTo", "[", 
+          RowBox[{"$Path", ",", 
+           RowBox[{"FileNameJoin", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"NotebookDirectory", "[", "]"}], ",", "thisDir", ",", 
+              "\"\<LXXpng\>\""}], "}"}], "]"}]}], "]"}], ";"}]}], "]"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"dir", "=", 
+       RowBox[{"FileNameJoin", "[", 
+        RowBox[{"{", 
+         RowBox[{
+          RowBox[{"NotebookDirectory", "[", "]"}], ",", "thisDir"}], "}"}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"allFiles", "=", 
+       RowBox[{"FileBaseName", "/@", 
+        RowBox[{"FileNames", "[", 
+         RowBox[{"\"\<*.m\>\"", ",", "dir"}], "]"}]}]}], ";", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"names", ",", "pars"}], "}"}], "=", 
+       RowBox[{"Transpose", "[", 
+        RowBox[{"StringSplit", "[", 
+         RowBox[{
+          RowBox[{"StringDrop", "[", 
+           RowBox[{"allFiles", ",", 
+            RowBox[{"StringLength", "[", "pre", "]"}]}], "]"}], ",", 
+          "\"\<(\>\""}], "]"}], "]"}]}], ";", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"imageNames", ",", "imagePars"}], "}"}], "=", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Union", "[", "names", "]"}], ",", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"StringJoin", "[", 
+            RowBox[{"\"\<(\>\"", ",", "#"}], "]"}], "&"}], "/@", "pars"}]}], 
+        "}"}]}], ";", 
+      RowBox[{"CellOpen", "\[Rule]", "False"}], ";"}], "\n", ")"}]}]}], 
+  "]"}]], "Input"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`colors$$ = 
+    "ThermometerColors", $CellContext`disp$$ = 
+    "summary", $CellContext`kind$$ = 1, $CellContext`lam$$ = 
+    0, $CellContext`lam2$$ = 1, $CellContext`newDir$$ = 
+    False, $CellContext`siz$$ = 1, $CellContext`snap$$ = 
+    False, $CellContext`thisImg$$ = 1, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{{
+       Hold[$CellContext`thisImg$$], 1, ""}, 
+      Dynamic[
+       Thread[Range[
+          Length[$CellContext`imageNames]] -> $CellContext`imageNames]]}, {{
+       Hold[$CellContext`kind$$], 1, ""}, 
+      Dynamic[
+       Thread[Range[
+          Length[$CellContext`allSuf]] -> $CellContext`allSuf]]}, {{
+       Hold[$CellContext`siz$$], 1, "size"}, {
+       Rational[1, 2], 
+       Rational[3, 4], 1, 2, 4}}, {{
+       Hold[$CellContext`disp$$], "summary", ""}, {
+      "summary", "Hthread", "Vthread", "Hangle", "Vangle", "histo"}}, {{
+       Hold[$CellContext`newDir$$], False, ""}, 
+      Dynamic[Button[
+        Text["Change\nDirectory"], $CellContext`newDir$$ = True]& ]}, {{
+       Hold[$CellContext`snap$$], False, ""}, 
+      Dynamic[Button[
+        Text["Snapshot"], $CellContext`snap$$ = True]& ]}, {
+      Hold[
+       Row[{
+         Dynamic[
+          Manipulate`Place[1]], 
+         Spacer[10], 
+         Manipulate`Place[2], 
+         Spacer[10], 
+         Manipulate`Place[3], 
+         Spacer[10], 
+         Manipulate`Place[4], 
+         Manipulate`Place[5], 
+         Manipulate`Place[6]}]], Manipulate`Dump`ThisIsNotAControl}, {{
+       Hold[$CellContext`colors$$], "ThermometerColors", " "}, {
+      "AlpineColors", "Aquamarine", "ArmyColors", "AtlanticColors", 
+       "AuroraColors", "AvocadoColors", "BeachColors", "BlueGreenYellow", 
+       "BrassTones", "BrightBands", "BrownCyanTones", "CandyColors", 
+       "CherryTones", "CMYKColors", "CoffeeTones", "DarkBands", "DarkRainbow",
+        "DarkTerrain", "DeepSeaColors", "FallColors", "FruitPunchColors", 
+       "FuchsiaTones", "GrayTones", "GrayYellowTones", "GreenBrownTerrain", 
+       "GreenPinkTones", "IslandColors", "LakeColors", "LightTemperatureMap", 
+       "LightTerrain", "MintColors", "NeonColors", "Pastel", "PearlColors", 
+       "PigeonTones", "PlumColors", "Rainbow", "RedBlueTones", 
+       "RedGreenSplit", "RoseColors", "RustTones", "SandyTerrain", 
+       "SiennaTones", "SolarColors", "SouthwestColors", "StarryNightColors", 
+       "SunsetColors", "TemperatureMap", "ThermometerColors", 
+       "ValentineTones", "WatermelonColors"}}, {{
+       Hold[$CellContext`lam$$], 0, "color\nlow"}, 0, 1}, {{
+       Hold[$CellContext`lam2$$], 1, "color\nhigh"}, 0, 1}, {
+      Hold[
+       Row[{
+         Manipulate`Place[7], 
+         Spacer[15], 
+         Manipulate`Place[8], 
+         Spacer[15], 
+         Manipulate`Place[9]}]], Manipulate`Dump`ThisIsNotAControl}}, 
+    Typeset`size$$ = {700., {458., 463.}}, Typeset`update$$ = 0, 
+    Typeset`initDone$$, Typeset`skipInitDone$$ = 
+    False, $CellContext`siz$888$$ = 0, $CellContext`disp$889$$ = 
+    0, $CellContext`colors$890$$ = 0, $CellContext`lam$891$$ = 
+    0, $CellContext`lam2$892$$ = 0}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     2, StandardForm, 
+      "Variables" :> {$CellContext`colors$$ = 
+        "ThermometerColors", $CellContext`disp$$ = 
+        "summary", $CellContext`kind$$ = 1, $CellContext`lam$$ = 
+        0, $CellContext`lam2$$ = 1, $CellContext`newDir$$ = 
+        False, $CellContext`siz$$ = 1, $CellContext`snap$$ = 
+        False, $CellContext`thisImg$$ = 1}, "ControllerVariables" :> {
+        Hold[$CellContext`siz$$, $CellContext`siz$888$$, 0], 
+        Hold[$CellContext`disp$$, $CellContext`disp$889$$, 0], 
+        Hold[$CellContext`colors$$, $CellContext`colors$890$$, 0], 
+        Hold[$CellContext`lam$$, $CellContext`lam$891$$, 0], 
+        Hold[$CellContext`lam2$$, $CellContext`lam2$892$$, 0]}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, 
+      "Body" :> (If[$CellContext`snap$$ == True, Export[
+           FileNameJoin[{
+             NotebookDirectory[], 
+             StringJoin[
+              Part[$CellContext`imageNames, $CellContext`thisImg$$], 
+              "Snapshot", 
+              ToString[$CellContext`snapCount], 
+              ".pdf"]}], $CellContext`gGrid]; $CellContext`snap$$ = 
+          False; $CellContext`snapCount = $CellContext`snapCount + 1; Null]; 
+       If[
+         Or[$CellContext`newDir$$ == True, $CellContext`startDir == 
+          True], $CellContext`thisChoice = SystemDialogInput["Directory", 
+            NotebookDirectory[], WindowTitle -> 
+            "Please locate the folder weaveMaps"]; 
+         If[$CellContext`thisChoice =!= $Canceled, $CellContext`thisDir = \
+$CellContext`thisChoice; $CellContext`dir = $CellContext`thisDir; \
+$CellContext`allFiles = Map[FileBaseName, 
+              FileNames[
+              "*.m", $CellContext`dir]]; {$CellContext`names, \
+$CellContext`pars} = Transpose[
+              StringSplit[
+               StringDrop[$CellContext`allFiles, 
+                StringLength[$CellContext`pre]], 
+               "("]]; {$CellContext`imageNames, $CellContext`imagePars} = {
+              Union[$CellContext`names], 
+              Map[
+              StringJoin[
+               "(", #]& , $CellContext`pars]}; $CellContext`kindOld = \
+($CellContext`thisImgOld = ($CellContext`sizOld = 0)); $CellContext`newDir$$ = 
+            False; $CellContext`startDir = False; Null]; Null]; If[
+         Or[$CellContext`thisImg$$ != $CellContext`thisImgOld, \
+$CellContext`kind$$ != $CellContext`kindOld], $CellContext`allSuf = 
+          Part[$CellContext`imagePars, 
+            Flatten[
+             Position[$CellContext`names, 
+              Part[$CellContext`imageNames, $CellContext`thisImg$$]]]]; Get[
+           FileNameJoin[{$CellContext`dir, 
+             StringJoin[$CellContext`pre, 
+              Part[$CellContext`imageNames, $CellContext`thisImg$$], 
+              Part[$CellContext`allSuf, $CellContext`thisKind = Min[
+                 Length[$CellContext`allSuf], $CellContext`kind$$]], 
+              ".m"]}]]; $CellContext`allV = Select[
+            Flatten[$CellContext`matV], -Infinity < # < 
+            Infinity& ]; $CellContext`allH = Select[
+            Flatten[$CellContext`matH], -Infinity < # < 
+            Infinity& ]; {$CellContext`minV, $CellContext`maxV, \
+$CellContext`meanVThread, $CellContext`STDVThread} = {
+            Min[$CellContext`allV], 
+            Max[$CellContext`allV], 
+            Mean[$CellContext`allV], 
+            StandardDeviation[$CellContext`allV]}; $CellContext`meanV = 
+          ToString[
+            NumberForm[$CellContext`meanVThread, 4]]; $CellContext`stdV = 
+          ToString[
+            
+            NumberForm[$CellContext`STDVThread, 
+             3]]; {$CellContext`minH, $CellContext`maxH, \
+$CellContext`meanHThread, $CellContext`STDHThread} = {
+            Min[$CellContext`allH], 
+            Max[$CellContext`allH], 
+            Mean[$CellContext`allH], 
+            StandardDeviation[$CellContext`allH]}; $CellContext`meanH = 
+          ToString[
+            NumberForm[$CellContext`meanHThread, 4]]; $CellContext`stdH = 
+          ToString[
+            NumberForm[$CellContext`STDHThread, 3]]; $CellContext`angHFlat = 
+          Select[
+            Flatten[$CellContext`angH], -Infinity < # < 
+            Infinity& ]; $CellContext`angVFlat = Select[
+            Flatten[$CellContext`angV], -Infinity < # < 
+            Infinity& ]; {$CellContext`minDegH, $CellContext`maxDegH, \
+$CellContext`stdAngH, $CellContext`minDiff} = {
+            Min[$CellContext`angHFlat], 
+            Max[$CellContext`angHFlat], 
+            StandardDeviation[$CellContext`angHFlat], 
+            Min[$CellContext`angHFlat] - 
+            Max[$CellContext`angVFlat]}; {$CellContext`minDegV, \
+$CellContext`maxDegV, $CellContext`stdAngV, $CellContext`maxDiff} = {
+            Min[$CellContext`angVFlat], 
+            Max[$CellContext`angVFlat], 
+            StandardDeviation[$CellContext`angVFlat], 
+            Max[$CellContext`angHFlat] - 
+            Min[$CellContext`angVFlat]}; $CellContext`degH = StringJoin[
+            ToString[
+             NumberForm[$CellContext`minDegH, 3]], " to ", 
+            ToString[
+             NumberForm[$CellContext`maxDegH, 3]]]; $CellContext`degV = 
+          StringJoin[
+            ToString[
+             NumberForm[$CellContext`minDegV, 3]], " to ", 
+            ToString[
+             
+             NumberForm[$CellContext`maxDegV, 
+              3]]]; $CellContext`thisImgOld = $CellContext`thisImg$$; \
+$CellContext`sizOld = 
+          0; $CellContext`kind$$ = ($CellContext`kindOld = \
+$CellContext`thisKind); Null]; 
+       If[$CellContext`siz$$ != $CellContext`sizOld, $CellContext`pngName = 
+          Part[$CellContext`names, 
+            First[
+             First[
+              Position[$CellContext`names, 
+               
+               Part[$CellContext`imageNames, $CellContext`thisImg$$]]]]]; \
+$CellContext`pngFileName = FindFile[
+            StringJoin[$CellContext`pngName, ".png"]]; 
+         If[$CellContext`pngFileName != 
+           "$Failed", $CellContext`pngExists = True; $CellContext`png = 
+            Import[$CellContext`pngFileName]; $CellContext`pngSmall = 
+            ImageResize[$CellContext`png, 600 $CellContext`siz$$]; 
+           Null, $CellContext`pngExists = False; 
+           Null]; $CellContext`sizOld = $CellContext`siz$$; Null]; 
+       Which[$CellContext`disp$$ == 
+         "histo", $CellContext`lab = $CellContext`lab2; $CellContext`gGrid = 
+          GraphicsGrid[{{
+              Histogram[
+               Flatten[$CellContext`matH], $CellContext`opts, PlotLabel -> 
+               "horizontal thread density (threads/cm)"], 
+              Histogram[
+               Flatten[$CellContext`matV], $CellContext`opts, PlotLabel -> 
+               "vertical thread density (threads/cm)"]}, {
+              Histogram[
+               Flatten[$CellContext`angH], $CellContext`opts, PlotLabel -> 
+               "horizontal thread angles (degrees)"], 
+              Histogram[
+               Flatten[$CellContext`angV], $CellContext`opts, PlotLabel -> 
+               "vertical thread angles (degrees)"]}}, ImageSize -> 
+            700 $CellContext`siz$$], $CellContext`disp$$ == 
+         "summary", $CellContext`lab = $CellContext`lab1; $CellContext`gGrid = 
+          GraphicsGrid[{{
+              ArrayPlot[
+               
+               Clip[$CellContext`matH, {$CellContext`meanHThread - 
+                 3, $CellContext`meanHThread + 3}], 
+               ColorRules -> {Infinity -> Black}, 
+               ColorFunction -> $CellContext`colors$$, PlotLabel -> 
+               StringJoin[
+                "horizontal thread density (", $CellContext`meanH, 
+                 " +/- ", $CellContext`stdH, " threads/cm)"]], 
+              ArrayPlot[
+               
+               Clip[$CellContext`matV, {$CellContext`meanVThread - 
+                 3, $CellContext`meanVThread + 3}], 
+               ColorRules -> {Infinity -> Black}, 
+               ColorFunction -> $CellContext`colors$$, PlotLabel -> 
+               StringJoin[
+                "vertical thread density (", $CellContext`meanV, 
+                 " +/- ", $CellContext`stdV, " threads/cm)"]]}, {
+              
+              ArrayPlot[$CellContext`angH, ColorRules -> {Infinity -> Black}, 
+               ColorFunction -> $CellContext`colors$$, PlotLabel -> 
+               StringJoin["horizontal thread angles (+/-", 
+                 ToString[$CellContext`stdAngH], " degrees) "]], 
+              
+              ArrayPlot[$CellContext`angV, ColorRules -> {Infinity -> Black}, 
+               ColorFunction -> $CellContext`colors$$, PlotLabel -> 
+               StringJoin["vertical thread angles (+/-", 
+                 ToString[$CellContext`stdAngV], " degrees) "]]}}, ImageSize -> 
+            700 $CellContext`siz$$], 
+         Or[$CellContext`disp$$ == "Hthread", $CellContext`disp$$ == 
+          "Vthread", $CellContext`disp$$ == "Hangle", $CellContext`disp$$ == 
+          "Vangle"], $CellContext`lab = "x-ray"; $CellContext`gGrid = 
+          FlipView[{
+            Which[$CellContext`disp$$ == 
+               "Hthread", $CellContext`mat = 
+                Map[Clip[#, {$CellContext`barMin = (
+                    
+                    1 - $CellContext`lam$$) $CellContext`minH + \
+$CellContext`lam$$ $CellContext`maxH, $CellContext`barMax = (
+                    1 - $CellContext`lam2$$) $CellContext`minH + \
+$CellContext`lam2$$ $CellContext`maxH}]& , $CellContext`matH, 
+                  1]; $CellContext`lab = 
+                "Deviation of horizontal thread count"; 
+               Null, $CellContext`disp$$ == 
+               "Vthread", $CellContext`mat = 
+                Map[Clip[#, {$CellContext`barMin = (
+                    1 - $CellContext`lam$$) $CellContext`minV + \
+$CellContext`lam$$ $CellContext`maxV, $CellContext`barMax = (
+                    1 - $CellContext`lam2$$) $CellContext`minV + \
+$CellContext`lam2$$ $CellContext`maxV}]& , $CellContext`matV, 
+                  1]; $CellContext`lab = "Deviation of vertical thread count"; 
+               Null, $CellContext`disp$$ == 
+               "Hangle", $CellContext`mat = 
+                Map[Clip[#, {$CellContext`barMin = (
+                    1 - $CellContext`lam$$) $CellContext`minDegV + \
+$CellContext`lam$$ $CellContext`maxDegV, $CellContext`barMax = (
+                    1 - $CellContext`lam2$$) $CellContext`minDegV + \
+$CellContext`lam2$$ $CellContext`maxDegV}]& , $CellContext`angV, 
+                  1]; $CellContext`lab = "Horizontal angle"; 
+               Null, $CellContext`disp$$ == 
+               "Vangle", $CellContext`mat = 
+                Map[Clip[#, {$CellContext`barMin = (
+                    1 - $CellContext`lam$$) $CellContext`minDegH + \
+$CellContext`lam$$ $CellContext`maxDegH, $CellContext`barMax = (
+                    1 - $CellContext`lam2$$) $CellContext`minDegH + \
+$CellContext`lam2$$ $CellContext`maxDegH}]& , $CellContext`angH, 
+                  1]; $CellContext`lab = "Vertical angle"; 
+               Null]; $CellContext`thisMat = Row[{
+                 
+                 ArrayPlot[$CellContext`mat, 
+                  ColorRules -> {Infinity -> Black}, 
+                  ColorFunction -> $CellContext`colors$$, Frame -> False, 
+                  ImageSize -> 600 $CellContext`siz$$], 
+                 BarLegend[{$CellContext`colors$$, {
+                    Min[$CellContext`barMin, $CellContext`barMax], 
+                    Max[$CellContext`barMin, $CellContext`barMax]}}]}], 
+             
+             If[$CellContext`pngExists == 
+              True, $CellContext`pngSmall, $CellContext`thisMat]}]]), 
+      "Specifications" :> {{{$CellContext`thisImg$$, 1, ""}, 
+         Dynamic[
+          Thread[Range[
+             Length[$CellContext`imageNames]] -> $CellContext`imageNames]], 
+         ControlType -> PopupMenu, ControlPlacement -> 
+         1}, {{$CellContext`kind$$, 1, ""}, 
+         Dynamic[
+          Thread[Range[
+             Length[$CellContext`allSuf]] -> $CellContext`allSuf]], 
+         ControlType -> PopupMenu, ControlPlacement -> 
+         2}, {{$CellContext`siz$$, 1, "size"}, {
+          Rational[1, 2], 
+          Rational[3, 4], 1, 2, 4}, ControlType -> PopupMenu, 
+         ControlPlacement -> 3}, {{$CellContext`disp$$, "summary", ""}, {
+         "summary", "Hthread", "Vthread", "Hangle", "Vangle", "histo"}, 
+         ControlType -> SetterBar, ControlPlacement -> 
+         4}, {{$CellContext`newDir$$, False, ""}, 
+         Dynamic[Button[
+           Text["Change\nDirectory"], $CellContext`newDir$$ = True]& ], 
+         ControlPlacement -> 5}, {{$CellContext`snap$$, False, ""}, 
+         Dynamic[Button[
+           Text["Snapshot"], $CellContext`snap$$ = True]& ], ControlPlacement -> 
+         6}, 
+        Row[{
+          Dynamic[
+           Manipulate`Place[1]], 
+          Spacer[10], 
+          Manipulate`Place[2], 
+          Spacer[10], 
+          Manipulate`Place[3], 
+          Spacer[10], 
+          Manipulate`Place[4], 
+          Manipulate`Place[5], 
+          Manipulate`Place[6]}], {{$CellContext`colors$$, "ThermometerColors",
+           " "}, {"AlpineColors", "Aquamarine", "ArmyColors", 
+          "AtlanticColors", "AuroraColors", "AvocadoColors", "BeachColors", 
+          "BlueGreenYellow", "BrassTones", "BrightBands", "BrownCyanTones", 
+          "CandyColors", "CherryTones", "CMYKColors", "CoffeeTones", 
+          "DarkBands", "DarkRainbow", "DarkTerrain", "DeepSeaColors", 
+          "FallColors", "FruitPunchColors", "FuchsiaTones", "GrayTones", 
+          "GrayYellowTones", "GreenBrownTerrain", "GreenPinkTones", 
+          "IslandColors", "LakeColors", "LightTemperatureMap", "LightTerrain",
+           "MintColors", "NeonColors", "Pastel", "PearlColors", "PigeonTones",
+           "PlumColors", "Rainbow", "RedBlueTones", "RedGreenSplit", 
+          "RoseColors", "RustTones", "SandyTerrain", "SiennaTones", 
+          "SolarColors", "SouthwestColors", "StarryNightColors", 
+          "SunsetColors", "TemperatureMap", "ThermometerColors", 
+          "ValentineTones", "WatermelonColors"}, ControlPlacement -> 
+         7}, {{$CellContext`lam$$, 0, "color\nlow"}, 0, 1, ControlPlacement -> 
+         8}, {{$CellContext`lam2$$, 1, "color\nhigh"}, 0, 1, ControlPlacement -> 
+         9}, 
+        Row[{
+          Manipulate`Place[7], 
+          Spacer[15], 
+          Manipulate`Place[8], 
+          Spacer[15], 
+          Manipulate`Place[9]}]}, "Options" :> {FrameLabel -> Style[
+          Dynamic[$CellContext`lab], Medium], SynchronousUpdating -> False}, 
+      "DefaultOptions" :> {}],
+     ImageSizeCache->{770., {543., 548.}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    Initialization:>(($CellContext`allColors = 
+       ColorData["Gradients"]; $CellContext`startDir = 
+       True; $CellContext`opts = {
+        ChartElementFunction -> "GlassRectangle", ChartStyle -> 
+         LightBlue}; $CellContext`lab1 = 
+       "Deviation from painting-wide averages in thread count density (in \
+threads/cm) and angle (in degrees)"; $CellContext`lab2 = 
+       "Histograms of thread count density and angles"; \
+$CellContext`thisImgOld = 0; $CellContext`sizOld = 0; $CellContext`snapCount = 
+       1; $CellContext`kindOld = 0; $CellContext`pre = "threadCount"; 
+      PrependTo[$Path, 
+        NotebookDirectory[]]; $CellContext`thisDir = "weaveMaps"; If[
+        FileExistsQ[
+         FileNameJoin[{
+           NotebookDirectory[], $CellContext`thisDir, "LXXpng"}]], 
+        PrependTo[$Path, 
+          FileNameJoin[{
+            NotebookDirectory[], $CellContext`thisDir, "LXXpng"}]]; 
+        Null]; $CellContext`dir = FileNameJoin[{
+          NotebookDirectory[], $CellContext`thisDir}]; $CellContext`allFiles = 
+       Map[FileBaseName, 
+         FileNames[
+         "*.m", $CellContext`dir]]; {$CellContext`names, $CellContext`pars} = 
+       Transpose[
+         StringSplit[
+          StringDrop[$CellContext`allFiles, 
+           StringLength[$CellContext`pre]], 
+          "("]]; {$CellContext`imageNames, $CellContext`imagePars} = {
+         Union[$CellContext`names], 
+         Map[StringJoin["(", #]& , $CellContext`pars]}; CellOpen -> False; 
+      Null); Typeset`initDone$$ = True),
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output"]
+}, Open  ]],
+
+Cell[BoxData[""], "Input"]
+},
+WindowSize->{1186, 1144},
+WindowMargins->{{5, Automatic}, {Automatic, 0}},
+FrontEndVersion->"11.0 for Mac OS X x86 (32-bit, 64-bit Kernel) (September \
+21, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 29568, 727, 2112, "Input"],
+Cell[30151, 751, 19992, 398, 1108, "Output"]
+}, Open  ]],
+Cell[50158, 1152, 26, 0, 32, "Input"]
+}
+]
+*)
+
