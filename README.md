@@ -13,16 +13,16 @@ W. A. Sethares, “Computer-Assisted Manual Thread Marking” in Counting Vermee
 
 The programs are:
 
-countingVermeer.cdf and countingVermeer.nb      main routine for calling the various modules
+countingVermeer.cdf and countingVermeer.nb      %%%% main routine for calling the various modules
 
-displayWeaveMaps.cdf and displayWeaveMaps.nb    used to display any precalculated weave maps
+displayWeaveMaps.cdf and displayWeaveMaps.nb    %%%% used to display any precalculated weave maps
 
-threadCount.cdf and threadCount25.nb            calculate weave maps from canvas x-rays 
+threadCount.cdf and threadCount25.nb            %%%% calculate weave maps from canvas x-rays 
 
-threadMarker.cdf and threadMarker.nb            used to mark threads for semi-automated manual counting
+threadMarker.cdf and threadMarker.nb            %%%% used to mark threads for semi-automated manual counting
 
-zoomIn.cdf and zoomIn.nb                        look closely at x-rays by zooming in
+zoomIn.cdf and zoomIn.nb                        %%%% look closely at x-rays by zooming in
 
-align.cdf and align11.nb                        read in two weave maps and display them on the same scale
+align.cdf and align11.nb                        %%%% read in two weave maps and display them on the same scale
 
-alignaAgle.nb                                   read in two angle maps and display them on the same scale
+alignaAgle.nb                                   %%%% read in two angle maps and display them on the same scale
