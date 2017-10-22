@@ -25,4 +25,16 @@ zoomIn.cdf and zoomIn.nb                        %%%% look closely at x-rays by z
 
 align.cdf and align11.nb                        %%%% read in two weave maps and display them on the same scale
 
-alignaAgle.nb                                   %%%% read in two angle maps and display them on the same scale
+alignAngle.nb                                   %%%% read in two angle maps and display them on the same scale
+
+Documentation for these programs may be found in this ReadMe file, as well as in 
+
+userguide.pdf                                   %%%% detailed instructions for use zoomIn, displayWeaveMaps, and align
+
+WSIVP.pdf                                       %%%% using displayWeaveMaps to examine weft snakes
+
+################################################################################################################
+Warning: at the moment, displayWeaveMaps.cdf and align.cdf have bugs and may function erratically.
+The notebook versions (displayWeaveMaps.nb and align.nb) function fine, but do require a full
+Mathematica license to run
+################################################################################################################
