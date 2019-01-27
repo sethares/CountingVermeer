@@ -34,7 +34,7 @@ userguide.pdf                                   %%%% detailed instructions for u
 WSIVP.pdf                                       %%%% using displayWeaveMaps to examine weft snakes
 
 ################################################################################################################
-Warning: at the moment, displayWeaveMaps.cdf and align.cdf have bugs and may function erratically.
-The notebook versions (displayWeaveMaps.nb and align.nb) function fine, but do require a full
+Warning: at the moment, align.cdf has bugs and may function erratically.
+The notebook version (align.nb) functions fine, but does require a full
 Mathematica license to run
 ################################################################################################################
