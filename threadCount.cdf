@@ -3,7 +3,7 @@
 (*** Wolfram CDF File ***)
 (* http://www.wolfram.com/cdf *)
 
-(* CreatedBy='Mathematica 10.4' *)
+(* CreatedBy='Mathematica 11.3' *)
 
 (*************************************************************************)
 (*                                                                       *)
@@ -23,16 +23,16 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[      1064,         20]
-NotebookDataLength[     59254,       1400]
-NotebookOptionsPosition[     59684,       1391]
-NotebookOutlinePosition[     60109,       1410]
-CellTagsIndexPosition[     60066,       1407]
+NotebookDataLength[     65825,       1524]
+NotebookOptionsPosition[     65922,       1513]
+NotebookOutlinePosition[     66362,       1533]
+CellTagsIndexPosition[     66319,       1530]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
 Cell[TextData[StyleBox["Calculate weave maps from canvas x-rays ", \
-"Subsection"]], "Text"],
+"Subsection"]], "Text",ExpressionUUID->"3f9eb566-443f-44fc-b5db-611bb0ef358d"],
 
 Cell["\<\
 Specify the name of the x-ray .tif file by pressing \
@@ -51,10 +51,8 @@ Once these choices have been set, press the \[OpenCurlyDoubleQuote]Calculate\
 progress bar will show you just how large a cup you need. When the program is \
 done, it will write out a data file that contains the horizontal and vertical \
 weave maps and angle maps. These can be viewed using the displayWeaveMaps \
-function.
-
-calculate all four possiblities for estimating x and y frequencies\
-\>", "Text"],
+function.\
+\>", "Text",ExpressionUUID->"a246418d-6a0d-43b7-94bb-981494ab3e37"],
 
 Cell[CellGroupData[{
 
@@ -80,7 +78,10 @@ Cell[BoxData[
           "\"\<tif\>\""}], ",", 
          RowBox[{
           RowBox[{"imgFull", "=", 
-           RowBox[{"Import", "[", "fName", "]"}]}], ";", 
+           RowBox[{"ColorConvert", "[", 
+            RowBox[{
+             RowBox[{"Import", "[", "fName", "]"}], ",", 
+             "\"\<Grayscale\>\""}], "]"}]}], ";", 
           RowBox[{"disp", "=", 
            RowBox[{"ImageResize", "[", 
             RowBox[{"imgFull", ",", 
@@ -105,24 +106,12 @@ Cell[BoxData[
       
       RowBox[{
        RowBox[{"dpc", "=", 
-        RowBox[{"dpi", "/", "2.54"}]}], ";", 
-       RowBox[{"suf", "=", 
-        RowBox[{"orient", "<>", "\"\<(\>\"", "<>", 
-         RowBox[{"ToString", "[", 
-          RowBox[{"If", "[", 
-           RowBox[{
-            RowBox[{"sizeSquares", "<", "1"}], ",", 
-            RowBox[{"N", "[", "sizeSquares", "]"}], ",", "sizeSquares"}], 
-           "]"}], "]"}], "<>", "\"\<-\>\"", "<>", 
-         RowBox[{"ToString", "[", 
-          RowBox[{"If", "[", 
-           RowBox[{
-            RowBox[{"IntegerQ", "[", "overlap", "]"}], ",", "overlap", ",", 
-            RowBox[{"N", "[", "overlap", "]"}]}], "]"}], "]"}]}]}], ";", 
+        RowBox[{"dpires", "/", "2.54"}]}], ";", 
        RowBox[{
         RowBox[{"{", 
          RowBox[{"w", ",", "h"}], "}"}], "=", 
         RowBox[{"ImageDimensions", "[", "imgFull", "]"}]}], ";", 
+       "\[IndentingNewLine]", 
        RowBox[{"sizBlocks", "=", 
         RowBox[{"Floor", "[", 
          RowBox[{"sizeSquares", " ", "dpc"}], "]"}]}], ";", 
@@ -186,13 +175,19 @@ Cell[BoxData[
           RowBox[{"Table", "[", 
            RowBox[{
             RowBox[{
-             RowBox[{"kk", "=", "ii"}], ";", 
+             RowBox[{"kk", "=", "ii"}], ";", "\[IndentingNewLine]", 
+             RowBox[{"newPatch", "=", 
+              RowBox[{"getPatch", "[", 
+               RowBox[{"ii", ",", "jj"}], "]"}]}], ";", 
+             RowBox[{"tot", "=", 
+              RowBox[{"Total", "[", 
+               RowBox[{
+                RowBox[{"ImageData", "[", "newPatch", "]"}], ",", "2"}], 
+               "]"}]}], ";", "\[IndentingNewLine]", 
              RowBox[{"fft2D", "[", 
               RowBox[{
-               RowBox[{"getPatch", "[", 
-                RowBox[{"ii", ",", "jj"}], "]"}], ",", "meanV", ",", "meanH", 
-               ",", "fftSize", ",", "2", ",", "orient", ",", "False"}], 
-              "]"}]}], ",", 
+              "newPatch", ",", "meanV", ",", "meanH", ",", "fftSize", ",", 
+               "2", ",", "orient", ",", "False"}], "]"}]}], ",", 
             RowBox[{"{", 
              RowBox[{"ii", ",", "1", ",", "imgRows", ",", "1"}], "}"}], ",", 
             RowBox[{"{", 
@@ -201,75 +196,113 @@ Cell[BoxData[
        RowBox[{"Do", "[", 
         RowBox[{
          RowBox[{
-          RowBox[{"allH", "=", 
-           RowBox[{"allThreads", "[", 
-            RowBox[{"[", 
-             RowBox[{"All", ",", "1", ",", "i"}], "]"}], "]"}]}], ";", 
-          RowBox[{"allV", "=", 
-           RowBox[{"allThreads", "[", 
-            RowBox[{"[", 
-             RowBox[{"All", ",", "2", ",", "i"}], "]"}], "]"}]}], ";", 
-          RowBox[{"allAngH", "=", 
-           RowBox[{"Mod", "[", 
-            RowBox[{
-             RowBox[{"allThreads", "[", 
-              RowBox[{"[", 
-               RowBox[{"All", ",", "3", ",", "i"}], "]"}], "]"}], ",", 
-             "360"}], "]"}]}], ";", 
-          RowBox[{"allAngV", "=", 
-           RowBox[{"allThreads", "[", 
-            RowBox[{"[", 
-             RowBox[{"All", ",", "4", ",", "i"}], "]"}], "]"}]}], ";", 
-          RowBox[{"matV", "=", 
-           RowBox[{"Partition", "[", 
-            RowBox[{
-             RowBox[{"N", "[", 
-              RowBox[{
-               RowBox[{"Round", "[", 
-                RowBox[{"100", " ", "allV"}], "]"}], "/", "100"}], "]"}], ",",
-              "imgCols"}], "]"}]}], ";", 
-          RowBox[{"angV", "=", 
-           RowBox[{"Partition", "[", 
-            RowBox[{
-             RowBox[{"N", "[", 
-              RowBox[{
-               RowBox[{"Round", "[", 
-                RowBox[{"100", " ", "allAngV"}], "]"}], "/", "100"}], "]"}], 
-             ",", "imgCols"}], "]"}]}], ";", 
-          RowBox[{"matH", "=", 
-           RowBox[{"Partition", "[", 
-            RowBox[{
-             RowBox[{"N", "[", 
-              RowBox[{
-               RowBox[{"Round", "[", 
-                RowBox[{"100", " ", "allH"}], "]"}], "/", "100"}], "]"}], ",",
-              "imgCols"}], "]"}]}], ";", 
-          RowBox[{"angH", "=", 
-           RowBox[{"Partition", "[", 
-            RowBox[{
-             RowBox[{"N", "[", 
-              RowBox[{
-               RowBox[{"Round", "[", 
-                RowBox[{"100", " ", "allAngH"}], "]"}], "/", "100"}], "]"}], 
-             ",", "imgCols"}], "]"}]}], ";", 
-          RowBox[{"fileOut", "=", 
+          RowBox[{"If", "[", 
            RowBox[{
-            RowBox[{"NotebookDirectory", "[", "]"}], "<>", 
-            "\"\<threadCount\>\"", "<>", "fileName", "<>", "\"\<Calc\>\"", "<>", 
-            RowBox[{"ToString", "[", "i", "]"}], "<>", "suf", "<>", 
-            "\"\<).m\>\""}]}], ";", 
-          RowBox[{"Save", "[", 
-           RowBox[{"fileOut", ",", 
-            RowBox[{"{", 
-             RowBox[{
-             "fileName", ",", "matH", ",", "angH", ",", "matV", ",", "angV"}],
-              "}"}]}], "]"}], ";"}], ",", 
+            RowBox[{
+             RowBox[{"Position", "[", 
+              RowBox[{"method", ",", "i"}], "]"}], "=!=", 
+             RowBox[{"{", "}"}]}], ",", "\[IndentingNewLine]", 
+            RowBox[{
+             RowBox[{"allH", "=", 
+              RowBox[{"allThreads", "[", 
+               RowBox[{"[", 
+                RowBox[{"All", ",", "1", ",", "i"}], "]"}], "]"}]}], ";", 
+             RowBox[{"allV", "=", 
+              RowBox[{"allThreads", "[", 
+               RowBox[{"[", 
+                RowBox[{"All", ",", "2", ",", "i"}], "]"}], "]"}]}], ";", 
+             RowBox[{"allAngH", "=", 
+              RowBox[{"Table", "[", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"val", "=", 
+                  RowBox[{"allThreads", "[", 
+                   RowBox[{"[", 
+                    RowBox[{"kkk", ",", "3", ",", "i"}], "]"}], "]"}]}], ";", 
+                 
+                 RowBox[{"If", "[", 
+                  RowBox[{
+                   RowBox[{"val", "<", "Infinity"}], ",", 
+                   RowBox[{"Mod", "[", 
+                    RowBox[{"val", ",", "360"}], "]"}], ",", "Infinity"}], 
+                  "]"}]}], ",", 
+                RowBox[{"{", 
+                 RowBox[{"kkk", ",", 
+                  RowBox[{"Length", "[", 
+                   RowBox[{"allThreads", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"All", ",", "3", ",", "i"}], "]"}], "]"}], 
+                   "]"}]}], "}"}]}], "]"}]}], ";", 
+             RowBox[{"allAngV", "=", 
+              RowBox[{"allThreads", "[", 
+               RowBox[{"[", 
+                RowBox[{"All", ",", "4", ",", "i"}], "]"}], "]"}]}], ";", 
+             RowBox[{"matV", "=", 
+              RowBox[{"Partition", "[", 
+               RowBox[{
+                RowBox[{"N", "[", 
+                 RowBox[{
+                  RowBox[{"Round", "[", 
+                   RowBox[{"100", " ", "allV"}], "]"}], "/", "100"}], "]"}], 
+                ",", "imgCols"}], "]"}]}], ";", 
+             RowBox[{"angV", "=", 
+              RowBox[{"Partition", "[", 
+               RowBox[{
+                RowBox[{"N", "[", 
+                 RowBox[{
+                  RowBox[{"Round", "[", 
+                   RowBox[{"100", " ", "allAngV"}], "]"}], "/", "100"}], 
+                 "]"}], ",", "imgCols"}], "]"}]}], ";", 
+             RowBox[{"matH", "=", 
+              RowBox[{"Partition", "[", 
+               RowBox[{
+                RowBox[{"N", "[", 
+                 RowBox[{
+                  RowBox[{"Round", "[", 
+                   RowBox[{"100", " ", "allH"}], "]"}], "/", "100"}], "]"}], 
+                ",", "imgCols"}], "]"}]}], ";", 
+             RowBox[{"angH", "=", 
+              RowBox[{"Partition", "[", 
+               RowBox[{
+                RowBox[{"N", "[", 
+                 RowBox[{
+                  RowBox[{"Round", "[", 
+                   RowBox[{"100", " ", "allAngH"}], "]"}], "/", "100"}], 
+                 "]"}], ",", "imgCols"}], "]"}]}], ";", "\[IndentingNewLine]", 
+             RowBox[{"suf", "=", 
+              RowBox[{"orient", "<>", 
+               RowBox[{"ToString", "[", "i", "]"}], "<>", "\"\<(\>\"", "<>", 
+               RowBox[{"ToString", "[", 
+                RowBox[{"If", "[", 
+                 RowBox[{
+                  RowBox[{"sizeSquares", "<", "1"}], ",", 
+                  RowBox[{"N", "[", "sizeSquares", "]"}], ",", 
+                  "sizeSquares"}], "]"}], "]"}], "<>", "\"\<-\>\"", "<>", 
+               RowBox[{"ToString", "[", 
+                RowBox[{"If", "[", 
+                 RowBox[{
+                  RowBox[{"IntegerQ", "[", "overlap", "]"}], ",", "overlap", 
+                  ",", 
+                  RowBox[{"N", "[", "overlap", "]"}]}], "]"}], "]"}], "<>", 
+               "\"\<)\>\"", "<>", 
+               RowBox[{"ToString", "[", "extraName", "]"}], "<>", 
+               "\"\<.m\>\""}]}], ";", 
+             RowBox[{"fileOut", "=", 
+              RowBox[{
+               RowBox[{"NotebookDirectory", "[", "]"}], "<>", 
+               "\"\<threadCount\>\"", "<>", "fileName", "<>", "suf"}]}], ";", 
+             
+             RowBox[{"Save", "[", 
+              RowBox[{"fileOut", ",", 
+               RowBox[{"{", 
+                RowBox[{"matH", ",", "angH", ",", "matV", ",", "angV"}], 
+                "}"}]}], "]"}], ";"}]}], "]"}], ";"}], ",", 
          RowBox[{"{", 
           RowBox[{"i", ",", "6"}], "}"}]}], "]"}], ";", "\[IndentingNewLine]", 
        RowBox[{"fileMess", "=", 
-        RowBox[{
-        "\"\<Weave map data written to file:\\n\>\"", "<>", "fileOut"}]}], 
-       ";", "\[IndentingNewLine]", 
+        RowBox[{"\"\<Weave map data written to file(s):\\n\>\"", "<>", 
+         RowBox[{"NotebookDirectory", "[", "]"}], "<>", "\"\<threadCount\>\"",
+          "<>", "fileName"}]}], ";", "\[IndentingNewLine]", 
        RowBox[{"calc", "=", "False"}]}], ",", 
       RowBox[{"calc", "=", "False"}]}], "]"}], ";", "\[IndentingNewLine]", 
     RowBox[{"Column", "[", 
@@ -291,11 +324,14 @@ Cell[BoxData[
        RowBox[{"{", 
         RowBox[{
          RowBox[{"{", 
-          RowBox[{"newFile", ",", "False", ",", "\"\<load x-ray file\>\""}], 
-          "}"}], ",", 
-         RowBox[{"{", 
-          RowBox[{"True", ",", "False"}], "}"}]}], "}"}], "]"}], ",", 
-      RowBox[{"Spacer", "[", "20", "]"}], ",", 
+          RowBox[{"newFile", ",", "False", ",", "\"\<\>\""}], "}"}], ",", 
+         RowBox[{
+          RowBox[{"Button", "[", 
+           RowBox[{
+            RowBox[{"Text", "[", "\"\<new x-ray\>\"", "]"}], ",", 
+            RowBox[{"newFile", "=", "True"}]}], "]"}], "&"}]}], "}"}], "]"}], 
+      ",", 
+      RowBox[{"Spacer", "[", "10", "]"}], ",", 
       RowBox[{"Control", "[", 
        RowBox[{"{", 
         RowBox[{
@@ -304,7 +340,7 @@ Cell[BoxData[
           "}"}], ",", 
          RowBox[{"ControlType", "\[Rule]", "InputField"}], ",", " ", 
          RowBox[{"FieldSize", "\[Rule]", "5"}]}], "}"}], "]"}], ",", 
-      RowBox[{"Spacer", "[", "20", "]"}], ",", 
+      RowBox[{"Spacer", "[", "10", "]"}], ",", 
       RowBox[{"Control", "[", 
        RowBox[{"{", 
         RowBox[{
@@ -313,7 +349,7 @@ Cell[BoxData[
           "}"}], ",", 
          RowBox[{"ControlType", "\[Rule]", "InputField"}], ",", 
          RowBox[{"FieldSize", "\[Rule]", "5"}]}], "}"}], "]"}], ",", 
-      RowBox[{"Spacer", "[", "20", "]"}], ",", 
+      RowBox[{"Spacer", "[", "10", "]"}], ",", 
       RowBox[{"Control", "[", 
        RowBox[{"{", 
         RowBox[{
@@ -323,7 +359,16 @@ Cell[BoxData[
          RowBox[{"{", 
           RowBox[{"\"\<Local\>\"", ",", "\"\<Linear\>\""}], "}"}]}], "}"}], 
        "]"}], ",", 
-      RowBox[{"Spacer", "[", "52", "]"}], ",", 
+      RowBox[{"Spacer", "[", "10", "]"}], ",", 
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"extraName", ",", "\"\<\>\"", ",", "\"\<label\>\""}], "}"}],
+          ",", 
+         RowBox[{"ControlType", "\[Rule]", "InputField"}], ",", 
+         RowBox[{"FieldSize", "\[Rule]", "6"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Spacer", "[", "20", "]"}], ",", 
       RowBox[{"Control", "[", 
        RowBox[{"{", 
         RowBox[{
@@ -342,29 +387,30 @@ Cell[BoxData[
         RowBox[{
          RowBox[{"{", 
           RowBox[{"sizeSquares", ",", 
-           RowBox[{"1", "/", "2"}], ",", "\"\<block\\nsize (cm)\>\""}], "}"}],
+           RowBox[{"3", "/", "4"}], ",", "\"\<block\\nsize (cm)\>\""}], "}"}],
           ",", 
          RowBox[{"{", 
-          RowBox[{"1", ",", 
+          RowBox[{
+           RowBox[{"5", "/", "4"}], ",", "1", ",", 
            RowBox[{"3", "/", "4"}], ",", 
            RowBox[{"1", "/", "2"}], ",", 
-           RowBox[{"2", "/", "5"}], ",", 
-           RowBox[{"1", "/", "3"}]}], "}"}]}], "}"}], "]"}], ",", 
+           RowBox[{"2", "/", "5"}]}], "}"}]}], "}"}], "]"}], ",", 
       RowBox[{"Spacer", "[", "10", "]"}], ",", 
       RowBox[{"Control", "[", 
        RowBox[{"{", 
         RowBox[{
          RowBox[{"{", 
-          RowBox[{"overlap", ",", "4", ",", "\"\<overlap\>\""}], "}"}], ",", 
+          RowBox[{"overlap", ",", "6", ",", "\"\<overlap\>\""}], "}"}], ",", 
          RowBox[{"{", 
-          RowBox[{"2", ",", "3", ",", "4", ",", "6", ",", "8"}], "}"}]}], 
-        "}"}], "]"}], ",", 
+          RowBox[{"2", ",", "3", ",", "4", ",", "6", ",", "8", ",", "10"}], 
+          "}"}], ",", 
+         RowBox[{"ControlType", "\[Rule]", "SetterBar"}]}], "}"}], "]"}], ",", 
       RowBox[{"Spacer", "[", "10", "]"}], ",", 
       RowBox[{"Control", "[", 
        RowBox[{"{", 
         RowBox[{
          RowBox[{"{", 
-          RowBox[{"fftSize", ",", "512", ",", "\"\<FFT size\>\""}], "}"}], 
+          RowBox[{"fftSize", ",", "1024", ",", "\"\<FFT size\>\""}], "}"}], 
          ",", 
          RowBox[{"{", 
           RowBox[{"512", ",", "1024"}], "}"}]}], "}"}], "]"}], ",", 
@@ -373,10 +419,23 @@ Cell[BoxData[
        RowBox[{"{", 
         RowBox[{
          RowBox[{"{", 
-          RowBox[{"dpi", ",", "600", ",", "\"\<DPI\>\""}], "}"}], ",", 
+          RowBox[{"dpires", ",", "600", ",", "\"\<DPI\>\""}], "}"}], ",", 
          RowBox[{"ControlType", "\[Rule]", "InputField"}], ",", 
-         RowBox[{"FieldSize", "\[Rule]", "5"}]}], "}"}], "]"}]}], "}"}], 
-    "]"}], ",", 
+         RowBox[{"FieldSize", "\[Rule]", "5"}]}], "}"}], "]"}], ",", 
+      RowBox[{"Spacer", "[", "10", "]"}], ",", 
+      RowBox[{"Control", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"{", 
+          RowBox[{"method", ",", 
+           RowBox[{"{", 
+            RowBox[{"1", ",", "2", ",", "3", ",", "4", ",", "5", ",", "6"}], 
+            "}"}], ",", "\"\<method\>\""}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"1", ",", "2", ",", "3", ",", "4", ",", "5", ",", "6"}], 
+          "}"}], ",", 
+         RowBox[{"ControlType", "\[Rule]", "TogglerBar"}]}], "}"}], "]"}]}], 
+     "}"}], "]"}], ",", 
    RowBox[{"FrameLabel", "\[Rule]", 
     RowBox[{"Style", "[", 
      RowBox[{
@@ -386,8 +445,10 @@ Cell[BoxData[
    RowBox[{"SynchronousUpdating", "\[Rule]", "False"}], ",", 
    "\[IndentingNewLine]", 
    RowBox[{"Initialization", "\[Rule]", 
-    RowBox[{"(", "\[IndentingNewLine]", 
+    RowBox[{"(", 
      RowBox[{
+      RowBox[{"disp", "=", "\"\<please load an x-ray file\>\""}], ";", 
+      RowBox[{"fileMess", "=", "\"\<\>\""}], ";", "\[IndentingNewLine]", 
       RowBox[{
        RowBox[{"calFreqP", "[", 
         RowBox[{
@@ -952,77 +1013,86 @@ Cell[BoxData[
           "\[IndentingNewLine]", 
           RowBox[{"{", 
            RowBox[{"countX", ",", "countY", ",", "argX", ",", "argY"}], 
-           "}"}]}]}], "\[IndentingNewLine]", "]"}]}], ";", 
-      "\[IndentingNewLine]", 
-      RowBox[{"disp", "=", "\"\<please load an x-ray file\>\""}], ";", 
-      RowBox[{"fileMess", "=", "\"\<\>\""}], ";"}], ")"}]}]}], "]"}]], "Input"],
+           "}"}]}]}], "]"}]}]}], ")"}]}]}], "]"}]], "Input",ExpressionUUID->\
+"13496e47-60bb-40be-a844-253618370803"],
 
 Cell[BoxData[
  TagBox[
   StyleBox[
-   DynamicModuleBox[{$CellContext`calc$$ = False, $CellContext`dpi$$ = 
-    600, $CellContext`fftSize$$ = 512, $CellContext`meanH$$ = 
-    10., $CellContext`meanV$$ = 12., $CellContext`newFile$$ = 
+   DynamicModuleBox[{$CellContext`calc$$ = False, $CellContext`dpires$$ = 
+    600, $CellContext`extraName$$ = "", $CellContext`fftSize$$ = 
+    1024, $CellContext`meanH$$ = 10., $CellContext`meanV$$ = 
+    12., $CellContext`method$$ = {1, 2, 3, 4, 5, 6}, $CellContext`newFile$$ = 
     False, $CellContext`orient$$ = "Linear", $CellContext`overlap$$ = 
-    4, $CellContext`sizeSquares$$ = Rational[1, 2], Typeset`show$$ = True, 
+    6, $CellContext`sizeSquares$$ = Rational[3, 4], Typeset`show$$ = True, 
     Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
     Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
     "\"untitled\"", Typeset`specs$$ = {{{
-       Hold[$CellContext`newFile$$], False, "load x-ray file"}, {
-      True, False}}, {{
+       Hold[$CellContext`newFile$$], False, ""}, 
+      Dynamic[Button[
+        Text["new x-ray"], $CellContext`newFile$$ = True]& ]}, {{
        Hold[$CellContext`meanH$$], 10., "horizontal\nmean"}}, {{
        Hold[$CellContext`meanV$$], 12., "vertical\nmean"}}, {{
        Hold[$CellContext`orient$$], "Linear", "Filter"}, {
       "Local", "Linear"}}, {{
+       Hold[$CellContext`extraName$$], "", "label"}}, {{
        Hold[$CellContext`calc$$], False, ""}, 
       Dynamic[Button["Calculate", $CellContext`calc$$ = True]& ]}, {
       Hold[
        Row[{
          Manipulate`Place[1], 
-         Spacer[20], 
+         Spacer[10], 
          Manipulate`Place[2], 
-         Spacer[20], 
+         Spacer[10], 
          Manipulate`Place[3], 
-         Spacer[20], 
+         Spacer[10], 
          Manipulate`Place[4], 
-         Spacer[52], 
-         Manipulate`Place[5]}]], Manipulate`Dump`ThisIsNotAControl}, {{
+         Spacer[10], 
+         Manipulate`Place[5], 
+         Spacer[20], 
+         Manipulate`Place[6]}]], Manipulate`Dump`ThisIsNotAControl}, {{
        Hold[$CellContext`sizeSquares$$], 
-       Rational[1, 2], "block\nsize (cm)"}, {1, 
+       Rational[3, 4], "block\nsize (cm)"}, {
+       Rational[5, 4], 1, 
        Rational[3, 4], 
        Rational[1, 2], 
-       Rational[2, 5], 
-       Rational[1, 3]}}, {{
-       Hold[$CellContext`overlap$$], 4, "overlap"}, {2, 3, 4, 6, 8}}, {{
-       Hold[$CellContext`fftSize$$], 512, "FFT size"}, {512, 1024}}, {{
-       Hold[$CellContext`dpi$$], 600, "DPI"}}, {
+       Rational[2, 5]}}, {{
+       Hold[$CellContext`overlap$$], 6, "overlap"}, {2, 3, 4, 6, 8, 10}}, {{
+       Hold[$CellContext`fftSize$$], 1024, "FFT size"}, {512, 1024}}, {{
+       Hold[$CellContext`dpires$$], 600, "DPI"}}, {{
+       Hold[$CellContext`method$$], {1, 2, 3, 4, 5, 6}, "method"}, {1, 2, 3, 
+      4, 5, 6}}, {
       Hold[
        Row[{
-         Manipulate`Place[6], 
-         Spacer[10], 
          Manipulate`Place[7], 
          Spacer[10], 
          Manipulate`Place[8], 
          Spacer[10], 
-         Manipulate`Place[9]}]], Manipulate`Dump`ThisIsNotAControl}}, 
-    Typeset`size$$ = {600., {161.634033203125, 167.365966796875}}, 
+         Manipulate`Place[9], 
+         Spacer[10], 
+         Manipulate`Place[10], 
+         Spacer[10], 
+         Manipulate`Place[11]}]], Manipulate`Dump`ThisIsNotAControl}}, 
+    Typeset`size$$ = {600., {162.134033203125, 167.865966796875}}, 
     Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
-    False, $CellContext`newFile$965$$ = False, $CellContext`orient$966$$ = 
-    False, $CellContext`sizeSquares$967$$ = 0, $CellContext`overlap$968$$ = 
-    0, $CellContext`fftSize$969$$ = False}, 
+    False, $CellContext`orient$2251$$ = 
+    False, $CellContext`sizeSquares$2252$$ = 0, $CellContext`overlap$2253$$ = 
+    0, $CellContext`fftSize$2254$$ = False, $CellContext`method$2255$$ = 0}, 
     DynamicBox[Manipulate`ManipulateBoxes[
      2, StandardForm, 
-      "Variables" :> {$CellContext`calc$$ = False, $CellContext`dpi$$ = 
-        600, $CellContext`fftSize$$ = 512, $CellContext`meanH$$ = 
-        10., $CellContext`meanV$$ = 12., $CellContext`newFile$$ = 
-        False, $CellContext`orient$$ = "Linear", $CellContext`overlap$$ = 
-        4, $CellContext`sizeSquares$$ = Rational[1, 2]}, 
-      "ControllerVariables" :> {
-        Hold[$CellContext`newFile$$, $CellContext`newFile$965$$, False], 
-        Hold[$CellContext`orient$$, $CellContext`orient$966$$, False], 
-        Hold[$CellContext`sizeSquares$$, $CellContext`sizeSquares$967$$, 0], 
-        Hold[$CellContext`overlap$$, $CellContext`overlap$968$$, 0], 
-        Hold[$CellContext`fftSize$$, $CellContext`fftSize$969$$, False]}, 
+      "Variables" :> {$CellContext`calc$$ = False, $CellContext`dpires$$ = 
+        600, $CellContext`extraName$$ = "", $CellContext`fftSize$$ = 
+        1024, $CellContext`meanH$$ = 10., $CellContext`meanV$$ = 
+        12., $CellContext`method$$ = {1, 2, 3, 4, 5, 
+         6}, $CellContext`newFile$$ = False, $CellContext`orient$$ = 
+        "Linear", $CellContext`overlap$$ = 6, $CellContext`sizeSquares$$ = 
+        Rational[3, 4]}, "ControllerVariables" :> {
+        Hold[$CellContext`orient$$, $CellContext`orient$2251$$, False], 
+        Hold[$CellContext`sizeSquares$$, $CellContext`sizeSquares$2252$$, 0], 
+        
+        Hold[$CellContext`overlap$$, $CellContext`overlap$2253$$, 0], 
+        Hold[$CellContext`fftSize$$, $CellContext`fftSize$2254$$, False], 
+        Hold[$CellContext`method$$, $CellContext`method$2255$$, 0]}, 
       "OtherVariables" :> {
        Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
         Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
@@ -1034,24 +1104,16 @@ Cell[BoxData[
             NotebookDirectory[], WindowTitle -> 
             "Open an x-ray in .tif format"]; 
          If[FileExtension[$CellContext`fName] == 
-           "tif", $CellContext`imgFull = 
-            Import[$CellContext`fName]; $CellContext`disp = 
+           "tif", $CellContext`imgFull = ColorConvert[
+              Import[$CellContext`fName], "Grayscale"]; $CellContext`disp = 
             ImageResize[$CellContext`imgFull, {300}]; $CellContext`fileName = 
             FileBaseName[$CellContext`fName]; $CellContext`fileMess = 
             ""; $CellContext`newFile$$ = False]; Null]; 
        If[$CellContext`fName == $Canceled, $CellContext`newFile$$ = 
          False]; $CellContext`var = $CellContext`calc$$; If[
          And[$CellContext`var == True, ImageQ[$CellContext`imgFull] == 
-          True], $CellContext`dpc = $CellContext`dpi$$/2.54; $CellContext`suf = 
-          StringJoin[$CellContext`orient$$, "(", 
-            ToString[
-             If[$CellContext`sizeSquares$$ < 1, 
-              N[$CellContext`sizeSquares$$], $CellContext`sizeSquares$$]], 
-            "-", 
-            ToString[
-             If[
-              IntegerQ[$CellContext`overlap$$], $CellContext`overlap$$, 
-              N[$CellContext`overlap$$]]]]; {$CellContext`w, $CellContext`h} = 
+          True], $CellContext`dpc = $CellContext`dpires$$/
+           2.54; {$CellContext`w, $CellContext`h} = 
           ImageDimensions[$CellContext`imgFull]; $CellContext`sizBlocks = 
           Floor[$CellContext`sizeSquares$$ $CellContext`dpc]; \
 $CellContext`setW = Drop[
@@ -1075,95 +1137,140 @@ $CellContext`sizBlocks/$CellContext`overlap$$]],
               Part[$CellContext`setH, $CellContext`overlap$$ + 1] - 
               Part[$CellContext`setH, 1]}, {{(-1)/2, 1/
                2}}]]; $CellContext`allThreads = Flatten[
-            Table[$CellContext`kk = $CellContext`ii; $CellContext`fft2D[
-               $CellContext`getPatch[$CellContext`ii, $CellContext`jj], \
+            
+            Table[$CellContext`kk = $CellContext`ii; $CellContext`newPatch = \
+$CellContext`getPatch[$CellContext`ii, $CellContext`jj]; $CellContext`tot = 
+              Total[
+                ImageData[$CellContext`newPatch], 
+                2]; $CellContext`fft2D[$CellContext`newPatch, \
 $CellContext`meanV$$, $CellContext`meanH$$, $CellContext`fftSize$$, 
                2, $CellContext`orient$$, False], {$CellContext`ii, 
               1, $CellContext`imgRows, 1}, {$CellContext`jj, 
               1, $CellContext`imgCols, 1}], 1]; 
-         Do[$CellContext`allH = 
-            Part[$CellContext`allThreads, All, 
-              1, $CellContext`i]; $CellContext`allV = 
-            Part[$CellContext`allThreads, All, 
-              2, $CellContext`i]; $CellContext`allAngH = Mod[
-              Part[$CellContext`allThreads, All, 3, $CellContext`i], 
-              360]; $CellContext`allAngV = 
-            Part[$CellContext`allThreads, All, 
-              4, $CellContext`i]; $CellContext`matV = Partition[
-              N[
-              Round[100 $CellContext`allV]/
-               100], $CellContext`imgCols]; $CellContext`angV = Partition[
-              N[
-              Round[100 $CellContext`allAngV]/
-               100], $CellContext`imgCols]; $CellContext`matH = Partition[
-              N[
-              Round[100 $CellContext`allH]/
-               100], $CellContext`imgCols]; $CellContext`angH = Partition[
-              N[
-              Round[100 $CellContext`allAngH]/
-               100], $CellContext`imgCols]; $CellContext`fileOut = 
-            StringJoin[
-              NotebookDirectory[], "threadCount", $CellContext`fileName, 
-              "Calc", 
-              ToString[$CellContext`i], $CellContext`suf, ").m"]; 
-           Save[$CellContext`fileOut, {$CellContext`fileName, \
-$CellContext`matH, $CellContext`angH, $CellContext`matV, $CellContext`angV}]; 
+         Do[If[Position[$CellContext`method$$, $CellContext`i] =!= {}, \
+$CellContext`allH = 
+              Part[$CellContext`allThreads, All, 
+                1, $CellContext`i]; $CellContext`allV = 
+              Part[$CellContext`allThreads, All, 
+                2, $CellContext`i]; $CellContext`allAngH = 
+              Table[$CellContext`val = 
+                 Part[$CellContext`allThreads, $CellContext`kkk, 
+                   3, $CellContext`i]; If[$CellContext`val < Infinity, 
+                  Mod[$CellContext`val, 360], Infinity], {$CellContext`kkk, 
+                 Length[
+                  
+                  Part[$CellContext`allThreads, All, 
+                   3, $CellContext`i]]}]; $CellContext`allAngV = 
+              Part[$CellContext`allThreads, All, 
+                4, $CellContext`i]; $CellContext`matV = Partition[
+                N[
+                Round[100 $CellContext`allV]/
+                 100], $CellContext`imgCols]; $CellContext`angV = Partition[
+                N[
+                Round[100 $CellContext`allAngV]/
+                 100], $CellContext`imgCols]; $CellContext`matH = Partition[
+                N[
+                Round[100 $CellContext`allH]/
+                 100], $CellContext`imgCols]; $CellContext`angH = Partition[
+                N[
+                Round[100 $CellContext`allAngH]/
+                 100], $CellContext`imgCols]; $CellContext`suf = 
+              StringJoin[$CellContext`orient$$, 
+                ToString[$CellContext`i], "(", 
+                ToString[
+                 If[$CellContext`sizeSquares$$ < 1, 
+                  N[$CellContext`sizeSquares$$], $CellContext`sizeSquares$$]],
+                 "-", 
+                ToString[
+                 If[
+                  IntegerQ[$CellContext`overlap$$], $CellContext`overlap$$, 
+                  N[$CellContext`overlap$$]]], ")", 
+                ToString[$CellContext`extraName$$], 
+                ".m"]; $CellContext`fileOut = StringJoin[
+                NotebookDirectory[], 
+                "threadCount", $CellContext`fileName, $CellContext`suf]; 
+             
+             Save[$CellContext`fileOut, {$CellContext`matH, \
+$CellContext`angH, $CellContext`matV, $CellContext`angV}]; Null]; 
            Null, {$CellContext`i, 6}]; $CellContext`fileMess = 
-          StringJoin[
-           "Weave map data written to file:\n", $CellContext`fileOut]; \
-$CellContext`calc$$ = False, $CellContext`calc$$ = False]; Column[{
+          StringJoin["Weave map data written to file(s):\n", 
+            NotebookDirectory[], 
+            "threadCount", $CellContext`fileName]; $CellContext`calc$$ = 
+          False, $CellContext`calc$$ = False]; Column[{
           GraphicsRow[{$CellContext`disp, 
             ProgressIndicator[
              Dynamic[$CellContext`kk/$CellContext`imgRows]]}, ImageSize -> 
            600], $CellContext`fileMess}]), 
-      "Specifications" :> {{{$CellContext`newFile$$, False, 
-          "load x-ray file"}, {True, False}, ControlPlacement -> 
+      "Specifications" :> {{{$CellContext`newFile$$, False, ""}, 
+         Dynamic[Button[
+           Text["new x-ray"], $CellContext`newFile$$ = True]& ], 
+         ControlPlacement -> 
          1}, {{$CellContext`meanH$$, 10., "horizontal\nmean"}, ControlType -> 
          InputField, FieldSize -> 5, ControlPlacement -> 
          2}, {{$CellContext`meanV$$, 12., "vertical\nmean"}, ControlType -> 
          InputField, FieldSize -> 5, ControlPlacement -> 
          3}, {{$CellContext`orient$$, "Linear", "Filter"}, {
          "Local", "Linear"}, ControlPlacement -> 
-         4}, {{$CellContext`calc$$, False, ""}, 
+         4}, {{$CellContext`extraName$$, "", "label"}, ControlType -> 
+         InputField, FieldSize -> 6, ControlPlacement -> 
+         5}, {{$CellContext`calc$$, False, ""}, 
          Dynamic[Button["Calculate", $CellContext`calc$$ = True]& ], 
-         ControlPlacement -> 5}, 
+         ControlPlacement -> 6}, 
         Row[{
           Manipulate`Place[1], 
-          Spacer[20], 
+          Spacer[10], 
           Manipulate`Place[2], 
-          Spacer[20], 
+          Spacer[10], 
           Manipulate`Place[3], 
-          Spacer[20], 
+          Spacer[10], 
           Manipulate`Place[4], 
-          Spacer[52], 
-          Manipulate`Place[5]}], {{$CellContext`sizeSquares$$, 
-          Rational[1, 2], "block\nsize (cm)"}, {1, 
+          Spacer[10], 
+          Manipulate`Place[5], 
+          Spacer[20], 
+          Manipulate`Place[6]}], {{$CellContext`sizeSquares$$, 
+          Rational[3, 4], "block\nsize (cm)"}, {
+          Rational[5, 4], 1, 
           Rational[3, 4], 
           Rational[1, 2], 
-          Rational[2, 5], 
-          Rational[1, 3]}, ControlPlacement -> 
-         6}, {{$CellContext`overlap$$, 4, "overlap"}, {2, 3, 4, 6, 8}, 
-         ControlPlacement -> 7}, {{$CellContext`fftSize$$, 512, "FFT size"}, {
-         512, 1024}, ControlPlacement -> 
-         8}, {{$CellContext`dpi$$, 600, "DPI"}, ControlType -> InputField, 
-         FieldSize -> 5, ControlPlacement -> 9}, 
+          Rational[2, 5]}, ControlPlacement -> 
+         7}, {{$CellContext`overlap$$, 6, "overlap"}, {2, 3, 4, 6, 8, 10}, 
+         ControlType -> SetterBar, ControlPlacement -> 
+         8}, {{$CellContext`fftSize$$, 1024, "FFT size"}, {512, 1024}, 
+         ControlPlacement -> 9}, {{$CellContext`dpires$$, 600, "DPI"}, 
+         ControlType -> InputField, FieldSize -> 5, ControlPlacement -> 
+         10}, {{$CellContext`method$$, {1, 2, 3, 4, 5, 6}, "method"}, {1, 2, 
+         3, 4, 5, 6}, ControlType -> TogglerBar, ControlPlacement -> 11}, 
         Row[{
-          Manipulate`Place[6], 
-          Spacer[10], 
           Manipulate`Place[7], 
           Spacer[10], 
           Manipulate`Place[8], 
           Spacer[10], 
-          Manipulate`Place[9]}]}, "Options" :> {FrameLabel -> Style[
+          Manipulate`Place[9], 
+          Spacer[10], 
+          Manipulate`Place[10], 
+          Spacer[10], 
+          Manipulate`Place[11]}]}, "Options" :> {FrameLabel -> Style[
           Dynamic[$CellContext`fileName], Medium], SynchronousUpdating -> 
         False}, "DefaultOptions" :> {}],
-     ImageSizeCache->{645., {239., 244.}},
+     ImageSizeCache->{670., {240., 246.}},
      SingleEvaluation->True],
     Deinitialization:>None,
     DynamicModuleValues:>{},
     Initialization:>({{$CellContext`disp = 
          "please load an x-ray file", $CellContext`fileMess = 
-         "", $CellContext`var = False, $CellContext`fft2D[
+         "", $CellContext`var = False, $CellContext`getPatch[
+           Pattern[$CellContext`i, 
+            Blank[]], 
+           Pattern[$CellContext`j, 
+            Blank[]]] := 
+         Module[{}, $CellContext`thisInd = 
+            Part[$CellContext`allPatches, $CellContext`i, $CellContext`j]; \
+$CellContext`thisPatch = ImageTake[$CellContext`imgFull, {
+               Part[$CellContext`thisInd, 1], 
+               Part[$CellContext`thisInd, 1] + $CellContext`sizBlocks - 1}, {
+               Part[$CellContext`thisInd, 2], 
+               Part[$CellContext`thisInd, 2] + $CellContext`sizBlocks - 
+               1}]], $CellContext`fft2D[
            Pattern[$CellContext`img, 
             Blank[]], 
            Pattern[$CellContext`hEst, 
@@ -1262,28 +1369,28 @@ $CellContext`cRegion = Part[$CellContext`xfAbs,
               
               Span[$CellContext`lowEC, $CellContext`highEC]]; \
 $CellContext`maxX = 
-            Max[($CellContext`xRegion - 1) MaxDetect[$CellContext`xRegion] 
+            Max[(($CellContext`xRegion - 1) MaxDetect[$CellContext`xRegion]) 
               ArrayPad[
                 ConstantArray[1, Dimensions[$CellContext`xRegion] - 2], 1]]; 
            If[$CellContext`maxX <= 0, $CellContext`posX = {0, 0}; 
              Null, $CellContext`posX = First[
                 Position[$CellContext`xRegion, $CellContext`maxX + 1]]; 
              Null]; $CellContext`maxY = 
-            Max[($CellContext`yRegion - 1) MaxDetect[$CellContext`yRegion] 
+            Max[(($CellContext`yRegion - 1) MaxDetect[$CellContext`yRegion]) 
               ArrayPad[
                 ConstantArray[1, Dimensions[$CellContext`yRegion] - 2], 1]]; 
            If[$CellContext`maxY <= 0, $CellContext`posY = {0, 0}; 
              Null, $CellContext`posY = First[
                 Position[$CellContext`yRegion, $CellContext`maxY + 1]]; 
              Null]; $CellContext`maxD = 
-            Max[($CellContext`dRegion - 1) MaxDetect[$CellContext`dRegion] 
+            Max[(($CellContext`dRegion - 1) MaxDetect[$CellContext`dRegion]) 
               ArrayPad[
                 ConstantArray[1, Dimensions[$CellContext`dRegion] - 2], 1]]; 
            If[$CellContext`maxD <= 0, $CellContext`posD = {0, 0}; 
              Null, $CellContext`posD = First[
                 Position[$CellContext`dRegion, $CellContext`maxD + 1]]; 
              Null]; $CellContext`maxC = 
-            Max[($CellContext`cRegion - 1) MaxDetect[$CellContext`cRegion] 
+            Max[(($CellContext`cRegion - 1) MaxDetect[$CellContext`cRegion]) 
               ArrayPad[
                 ConstantArray[1, Dimensions[$CellContext`cRegion] - 2], 1]]; 
            If[$CellContext`maxC <= 0, $CellContext`posC = {0, 0}; 
@@ -1332,7 +1439,6 @@ $CellContext`xX}; $CellContext`q3 =
             2 {$CellContext`yC, $CellContext`xC} + {$CellContext`yX, \
 $CellContext`xX}; $CellContext`q4 = {$CellContext`yC, $CellContext`xC} + \
 {$CellContext`yD, $CellContext`xD}; $CellContext`allYs = 
-            
             Map[$CellContext`calFreqP[#, $CellContext`siz]& , \
 {$CellContext`p1, $CellContext`p2, $CellContext`p3, $CellContext`p4, 
                Median[{$CellContext`p1, $CellContext`p2, $CellContext`p3}], 
@@ -1365,37 +1471,54 @@ $CellContext`calFreqP[{
              Blank[]]}, 
            Pattern[$CellContext`siz, 
             Blank[]]] := {$CellContext`dpc (
-            Norm[{$CellContext`y, $CellContext`x}]/$CellContext`siz), -
-            ArcTan[$CellContext`x, $CellContext`y]/Degree - 
-           90}, $CellContext`getPatch[
-           Pattern[$CellContext`i, 
-            Blank[]], 
-           Pattern[$CellContext`j, 
-            Blank[]]] := 
-         Module[{}, $CellContext`thisInd = 
-            Part[$CellContext`allPatches, $CellContext`i, $CellContext`j]; \
-$CellContext`thisPatch = ImageTake[$CellContext`imgFull, {
-               Part[$CellContext`thisInd, 1], 
-               Part[$CellContext`thisInd, 1] + $CellContext`sizBlocks - 1}, {
-               Part[$CellContext`thisInd, 2], 
-               Part[$CellContext`thisInd, 2] + $CellContext`sizBlocks - 1}]]}; 
-       Null}; Typeset`initDone$$ = True),
+            Norm[{$CellContext`y, $CellContext`x}]/$CellContext`siz), (-
+             ArcTan[$CellContext`x, $CellContext`y])/Degree - 90}}; Null}; 
+     Typeset`initDone$$ = True),
     SynchronousInitialization->True,
     UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
     UnsavedVariables:>{Typeset`initDone$$},
     UntrackedVariables:>{Typeset`size$$}], "Manipulate",
    Deployed->True,
    StripOnInput->False],
-  Manipulate`InterpretManipulate[1]]], "Output"]
-}, {2}]]
+  Manipulate`InterpretManipulate[1]]], "Output",ExpressionUUID->"fa1b1d0f-\
+c8ec-4a34-b3b8-35b06f3c5597"]
+}, {2}]],
+
+Cell["\<\
+When you look at the 2D FFT of a weave pattern, there are often peaks on the \
+x-axis and on the y-axis that correspond directly to the thread densities. \
+But there are (often) two other peaks (at the 45 degree point and at the -45 \
+degree) that can give information about the thread density. In total, there \
+are six ways of doing things:
+
+(1) measure the x and y locations directly (ignore the +/- 45 points)
+(2) measure the x location and calculate the y value using the x-location \
+plus the 45 degree location (ignore the y-location and the -45)
+(3) measure the x location and calculate the y value using the x-location \
+plus the -45 degree location \[NonBreakingSpace](ignore the y-location and \
+the 45)
+(4) measure the y location and calculate the x value using the y-location \
+plus the 45 degree location \[NonBreakingSpace](ignore the x-location and the \
+-45)
+(5) measure the y location and calculate the x value using the y-location \
+plus the -45 degree location \[NonBreakingSpace](ignore the x-location and \
+the 45)
+(6) measure the 45 degree and -45 degree locations and estimate both the x \
+and y locations \[NonBreakingSpace](ignore both the x and y locations)
+
+Depending on the particulars of the canvas, sometimes one of these is \
+noticeably better than the others. For instance, if the y-peaks were hard to \
+locate, then either (2) or (3) would be the best.\[NonBreakingSpace]\
+\>", "Text",ExpressionUUID->"358f360f-bcb5-4aff-ac78-ef764fbdbf34"]
 },
 WindowSize->{1082, 901},
 Visible->True,
 ScrollingOptions->{"VerticalScrollRange"->Fit},
 ShowCellBracket->Automatic,
+Deployed->True,
 TrackCellChangeTimes->False,
-FrontEndVersion->"10.4 for Mac OS X x86 (32-bit, 64-bit Kernel) (April 11, \
-2016)",
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
 StyleDefinitions->"Default.nb"
 ]
 (* End of Notebook Content *)
@@ -1409,16 +1532,17 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[1464, 33, 92, 1, 38, "Text"],
-Cell[1559, 36, 1005, 20, 258, "Text"],
+Cell[1464, 33, 147, 1, 41, "Text",ExpressionUUID->"3f9eb566-443f-44fc-b5db-611bb0ef358d"],
+Cell[1614, 36, 992, 18, 265, "Text",ExpressionUUID->"a246418d-6a0d-43b7-94bb-981494ab3e37"],
 Cell[CellGroupData[{
-Cell[2589, 60, 35348, 897, 1780, "Input"],
-Cell[37940, 959, 21731, 429, 500, "Output"]
-}, {2}]]
+Cell[2631, 58, 38256, 958, 2236, "Input",ExpressionUUID->"13496e47-60bb-40be-a844-253618370803"],
+Cell[40890, 1018, 23532, 465, 505, "Output",ExpressionUUID->"fa1b1d0f-c8ec-4a34-b3b8-35b06f3c5597"]
+}, {2}]],
+Cell[64434, 1486, 1484, 25, 311, "Text",ExpressionUUID->"358f360f-bcb5-4aff-ac78-ef764fbdbf34"]
 }
 ]
 *)
 
 (* End of internal cache information *)
 
-(* NotebookSignature XVOx1CJD@uDnjVzzoe2C6d87 *)
+(* NotebookSignature uU#hz8caVjAmKUz8oPU7u6aT *)
